@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg2663"
+   sodipodi:docname="CommanderWhite.svg"
+   inkscape:version="1.2 (dc2aedaf03, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview13"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.24705882"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.52221046"
+     inkscape:cx="22.021773"
+     inkscape:cy="597.46026"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer2" />
+  <defs
+     id="defs2660">
+    <color-profile
+       name="sRGB-IEC61966-2.1"
+       xlink:href="../../Windows/system32/spool/drivers/color/sRGB%20Color%20Space%20Profile.icm"
+       id="color-profile7239" />
+    <linearGradient
+       id="linearGradient5657">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop5655" />
+    </linearGradient>
+  </defs>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Layer 2" />
+  <g
+     id="layer1"
+     transform="translate(15.188817,-6.8040981)">
+    <g
+       id="g5754"
+       transform="rotate(-0.29138437,-19563.217,5522.8757)">
+      <path
+         id="path3105"
+         style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+         d="m 117.05158,210.84291 a 40,40 0 0 0 -40.203038,39.7962 40,40 0 0 0 39.796198,40.20253 40,40 0 0 0 40.20304,-39.79568 40,40 0 0 0 -39.7962,-40.20305 z m -0.0203,3.9997 a 36,36 0 0 1 35.81632,36.18301 36,36 0 0 1 -36.18248,35.81632 36,36 0 0 1 -35.816316,-36.18248 36,36 0 0 1 36.182476,-35.81685 z" />
+    </g>
+    <g
+       id="g5743"
+       transform="rotate(-0.29138444,-1728.8728,1059.6406)">
+      <path
+         id="path5797"
+         style="fill:#ffffff;fill-opacity:1;stroke-width:0.264999;stroke-dasharray:none;paint-order:markers stroke fill"
+         d="m 94.563203,124.08716 a 36,36 0 0 0 -36.18249,35.81633 36,36 0 0 0 35.81632,36.18248 36,36 0 0 0 36.182997,-35.81632 36,36 0 0 0 -35.816827,-36.18249 z m -0.0305,5.99955 A 30,30 0 0 1 124.37997,160.23914 30,30 0 0 1 94.227553,190.08641 30,30 0 0 1 64.380796,159.934 30,30 0 0 1 94.532703,130.08671 Z" />
+    </g>
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke-width:0.235985"
+       id="rect7152"
+       width="52.500401"
+       height="8.9565744"
+       x="63.53204"
+       y="146.34758" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke-width:0.174731"
+       id="rect7150"
+       width="44.038059"
+       height="4.4300561"
+       x="67.763"
+       y="148.61084" />
+  </g>
+</svg>

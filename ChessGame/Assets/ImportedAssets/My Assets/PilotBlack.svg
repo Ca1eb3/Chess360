@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg2663"
+   inkscape:version="1.2 (dc2aedaf03, 2022-05-15)"
+   sodipodi:docname="PilotBlack.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview2665"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.73851712"
+     inkscape:cx="152.33229"
+     inkscape:cy="561.93687"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g5743" />
+  <defs
+     id="defs2660">
+    <linearGradient
+       id="linearGradient5657"
+       inkscape:swatch="solid">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop5655" />
+    </linearGradient>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g5754"
+       transform="rotate(-0.29138437,105.0014,148.49839)">
+      <g
+         id="g5743">
+        <rect
+           style="fill:#000000;fill-opacity:1;stroke-width:0.265;stroke-dasharray:none;paint-order:markers stroke fill;image-rendering:auto"
+           id="rect3635"
+           width="164.14233"
+           height="20.42099"
+           x="23.899652"
+           y="-158.01926"
+           transform="matrix(0.99997853,0.00655281,0.00655281,-0.99997853,0,0)" />
+        <circle
+           style="fill:#000000;fill-opacity:1;stroke-width:0.264999;stroke-dasharray:none;paint-order:markers stroke fill"
+           id="path5797"
+           cx="105.75383"
+           cy="147.96408"
+           transform="rotate(0.29138359)"
+           r="36" />
+      </g>
+    </g>
+  </g>
+</svg>

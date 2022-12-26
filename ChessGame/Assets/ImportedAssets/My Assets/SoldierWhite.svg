@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg2663"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs2660">
+    <linearGradient
+       id="linearGradient5657">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop5655" />
+    </linearGradient>
+  </defs>
+  <g
+     id="layer1">
+    <g
+       id="g5754"
+       transform="rotate(-44.575097,105,148.5)">
+      <g
+         id="g5743">
+        <rect
+           style="fill:#000000;stroke-width:0.264583"
+           id="rect3633"
+           width="164.14233"
+           height="20.42099"
+           x="22.562601"
+           y="138.54778"
+           transform="rotate(-0.141179)" />
+        <rect
+           style="fill:#000000;fill-opacity:1;stroke-width:0.265;stroke-dasharray:none;paint-order:markers stroke fill;image-rendering:auto"
+           id="rect3635"
+           width="164.14233"
+           height="20.42099"
+           x="-231.10124"
+           y="-114.45676"
+           transform="matrix(-0.00506648,-0.99998717,-0.99998717,0.00506648,0,0)" />
+        <rect
+           style="fill:#ffffff;stroke-width:0.194024"
+           id="rect5729"
+           width="152.92595"
+           height="11.786993"
+           x="27.945877"
+           y="142.76707"
+           transform="matrix(0.99999883,-0.00152655,0.00397724,0.99999209,0,0)" />
+        <rect
+           style="fill:#ffffff;stroke-width:0.194024"
+           id="rect5735"
+           width="152.92595"
+           height="11.786993"
+           x="72.453911"
+           y="-110.66698"
+           transform="matrix(0.00152655,0.99999883,-0.99999209,0.00397724,0,0)" />
+      </g>
+    </g>
+  </g>
+</svg>
