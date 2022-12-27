@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 0}
     m_HighlightedColor: {r: 0.97264934, g: 1, b: 0, a: 1}
-    m_PressedColor: {r: 1, g: 0, b: 0, a: 1}
+    m_PressedColor: {r: 0.031846523, g: 0, b: 1, a: 1}
     m_SelectedColor: {r: 1, g: 0, b: 0, a: 1}
     m_DisabledColor: {r: 0, g: 1, b: 0.2669897, a: 1}
     m_ColorMultiplier: 1
@@ -98,7 +98,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6948086637307195673}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6948086637307195669}
+        m_TargetAssemblyTypeName: TileBehavior, Assembly-CSharp
+        m_MethodName: UpdateOccupation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!222 &6948086637307195672
 CanvasRenderer:
   m_ObjectHideFlags: 0

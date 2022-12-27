@@ -1,3 +1,5 @@
+// Caleb Smith
+// 12/26/2022
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,14 +7,9 @@ using UnityEngine;
 public class TileBehavior : MonoBehaviour
 {
     // class variables
-    private GameObject[] Occupation = new GameObject[1] { null };
+    private GamePiece[] OccupyingObject = new GamePiece[1] { null };
 
     // properties
-    public enum Sector
-    {
-        A, B, C, D, E, F, G, H, I, J, K, L
-    }
-
     [Header("Status")]
     public bool IsOccupied;
     public Sector TileSector;
@@ -30,15 +27,33 @@ public class TileBehavior : MonoBehaviour
         
     }
 
-    public void CheckOccupation()
+    public void UpdateStatus()
     {
-        if (Occupation[0] = null)
+        UpdateOccupation();
+    }
+
+    public void UpdateOccupation()
+    {
+        if (OccupyingObject[0] == null)
         {
             IsOccupied = false;
         }
         else
         {
             IsOccupied = true;
+        }
+    }
+
+    public bool UpdateOccupyingObject(GamePiece piece)
+    {
+        if (!IsOccupied)
+        {
+
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }
