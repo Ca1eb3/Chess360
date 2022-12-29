@@ -4,7 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Sector
+namespace ChessGame
 {
-    A, B, C, D, E, F, G, H, I, J, K, L
+    public enum Sector
+    {
+        A, B, C, D, E, F, G, H, I, J, K, L
+}
 }

@@ -3,9 +3,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ChessGame;
 
 public class GamePiece : MonoBehaviour
 {
+    // class variables
+    [Header("Test")]
+    public TileBehaviour CurrentLocation;
+    public TileBehaviour NextLocation;
+
+
     // properties
     [Header("Status")]
     public Sector TileSector;
@@ -23,8 +30,15 @@ public class GamePiece : MonoBehaviour
         
     }
 
+    public void UpdateGameData(GameData gameData)
+    {
+        gameData.CurrentTile = CurrentLocation;
+        gameData.SelectedPiece = this;
+    }
+
     public virtual void ChangePosition()
     {
-
+        //TileSector = 
+        //TileIndex = 
     }
 }

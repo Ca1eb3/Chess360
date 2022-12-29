@@ -3,11 +3,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using ChessGame;
 
-public class TileBehavior : MonoBehaviour
+public class TileBehaviour : MonoBehaviour
 {
     // class variables
-    private GamePiece[] OccupyingObject = new GamePiece[1] { null };
+    public GamePiece OccupyingObject = null;
 
     // properties
     [Header("Status")]
@@ -30,17 +32,32 @@ public class TileBehavior : MonoBehaviour
     public void UpdateStatus()
     {
         UpdateOccupation();
+        ButtonStatus();
     }
 
     public void UpdateOccupation()
     {
-        if (OccupyingObject[0] == null)
+        if (OccupyingObject == null)
         {
             IsOccupied = false;
         }
         else
         {
             IsOccupied = true;
+        }
+    }
+    
+    public void ButtonStatus()
+    {
+        if (IsOccupied)
+        {
+            Button button = this.gameObject.GetComponent("Button") as Button;
+            button.interactable = false;
+        }
+        else
+        {
+            Button button = this.gameObject.GetComponent("Button") as Button;
+            button.interactable = true;
         }
     }
 
@@ -55,5 +72,10 @@ public class TileBehavior : MonoBehaviour
         {
             return false;
         }
+    }
+
+    public void UpdateGameData(GameData gameData)
+    {
+        gameData.NewTile = this;
     }
 }
