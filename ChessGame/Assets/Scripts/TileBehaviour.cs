@@ -29,10 +29,10 @@ public class TileBehaviour : MonoBehaviour
         
     }
 
-    public void UpdateStatus()
+    public void UpdateStatus(GameData data)
     {
         UpdateOccupation();
-        ButtonStatus();
+        ButtonStatus(data);
     }
 
     public void UpdateOccupation()
@@ -47,12 +47,20 @@ public class TileBehaviour : MonoBehaviour
         }
     }
     
-    public void ButtonStatus()
+    public void ButtonStatus(GameData data)
     {
         if (IsOccupied)
         {
-            Button button = this.gameObject.GetComponent("Button") as Button;
-            button.interactable = false;
+            if (OccupyingObject.Color == PieceColor.White && data.MoveCounter % 2 == 0 || OccupyingObject.Color == PieceColor.Black && data.MoveCounter % 2 == 1)
+            {
+                Button button = this.gameObject.GetComponent("Button") as Button;
+                button.interactable = false;
+            }
+            else
+            {
+                Button button = this.gameObject.GetComponent("Button") as Button;
+                button.interactable = true;
+            }
         }
         else
         {

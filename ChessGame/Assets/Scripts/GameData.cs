@@ -13,11 +13,17 @@ public class GameData : MonoBehaviour
     public TileBehaviour CurrentTile;
     public TileBehaviour NewTile;
     public int MoveCounter = 0;
+    public List<GamePiece> GamePieces = new List<GamePiece>();
 
     // Start is called before the first frame update
     void Start()
     {
-
+        GameObject[] objects = GameObject.FindGameObjectsWithTag("Pieces");
+        foreach (GameObject o in objects)
+        {
+            GamePiece piece = o.GetComponent("GamePiece") as GamePiece;
+            GamePieces.Add(piece);
+        }
     }
 
     // Update is called once per frame
@@ -35,6 +41,10 @@ public class GameData : MonoBehaviour
         {
             return;
         }
+        if (SelectedPiece.MoveParameterCheck() == false)
+        {
+            return;
+        }
         // update move counter
         MoveCounter++;
         // Change piece position
@@ -47,7 +57,12 @@ public class GameData : MonoBehaviour
         // update original tile and new tile
         NewTile.OccupyingObject = CurrentTile.OccupyingObject;
         CurrentTile.OccupyingObject = null;
-        CurrentTile.UpdateStatus();
-        NewTile.UpdateStatus();
+        CurrentTile.UpdateStatus(this);
+        NewTile.UpdateStatus(this);
+        foreach (var piece in GamePieces)
+        {
+            piece.CurrentLocation.UpdateStatus(this);
+            piece.UpdateButtonStatus(this);
+        }
     }
 }

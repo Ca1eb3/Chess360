@@ -3,9 +3,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using ChessGame;
 
-public class GamePiece : MonoBehaviour
+public abstract class GamePiece : MonoBehaviour
 {
     // class variables
     public TileBehaviour CurrentLocation;
@@ -30,10 +31,25 @@ public class GamePiece : MonoBehaviour
         
     }
 
-    public void UpdateGameData(GameData gameData)
+    public void UpdateGameData(GameData data)
     {
-        gameData.CurrentTile = CurrentLocation;
-        gameData.SelectedPiece = this;
+        data.CurrentTile = CurrentLocation;
+        data.SelectedPiece = this;
     }
 
+    public void UpdateButtonStatus(GameData data)
+    {
+        if (Color == PieceColor.White && data.MoveCounter % 2 == 0 || Color == PieceColor.Black && data.MoveCounter % 2 == 1)
+        {
+            Button button = this.gameObject.GetComponent("Button") as Button;
+            button.interactable = true;
+        }
+        else
+        {
+            Button button = this.gameObject.GetComponent("Button") as Button;
+            button.interactable = false;
+        }
+    }
+
+    public abstract bool MoveParameterCheck();
 }

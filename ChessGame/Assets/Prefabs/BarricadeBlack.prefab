@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3575850549734525258}
   - component: {fileID: 7589746988224872105}
-  - component: {fileID: 8905498433488669154}
+  - component: {fileID: 6475988786852740272}
   - component: {fileID: 8905498433488669157}
   - component: {fileID: 3575850549734525259}
   - component: {fileID: 3575850549734525256}
@@ -93,7 +93,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8905498433488669154
+--- !u!114 &6475988786852740272
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -102,7 +102,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3575850549734525257}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f362b7e0b0f11374cb097ee192a7644c, type: 3}
+  m_Script: {fileID: 11500000, guid: e265891fd93eee248bde7461a106fd13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentLocation: {fileID: 0}
@@ -149,12 +149,12 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 3575850549734525256}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8905498433488669154}
+      - m_Target: {fileID: 6475988786852740272}
         m_TargetAssemblyTypeName: GamePiece, Assembly-CSharp
         m_MethodName: UpdateGameData
         m_Mode: 2
