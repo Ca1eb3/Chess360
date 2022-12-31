@@ -8,13 +8,13 @@ using ChessGame;
 public class GamePiece : MonoBehaviour
 {
     // class variables
-    [Header("Test")]
     public TileBehaviour CurrentLocation;
     public TileBehaviour NextLocation;
 
 
     // properties
     [Header("Status")]
+    public PieceColor Color;
     public Sector TileSector;
     public int TileIndex;
 
@@ -36,9 +36,4 @@ public class GamePiece : MonoBehaviour
         gameData.SelectedPiece = this;
     }
 
-    public virtual void ChangePosition()
-    {
-        //TileSector = 
-        //TileIndex = 
-    }
 }
