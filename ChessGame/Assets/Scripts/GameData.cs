@@ -14,7 +14,6 @@ public class GameData : MonoBehaviour
     public TileBehaviour NewTile;
     public int MoveCounter = 0;
     public List<GamePiece> GamePieces = new List<GamePiece>();
-    public List<TileBehaviour> Tiles = new List<TileBehaviour>();
 
     // Start is called before the first frame update
     void Start()
@@ -24,12 +23,6 @@ public class GameData : MonoBehaviour
         {
             GamePiece piece = o.GetComponent("GamePiece") as GamePiece;
             GamePieces.Add(piece);
-        }
-        GameObject[] TileObjects = GameObject.FindGameObjectsWithTag("Tiles");
-        foreach (GameObject o in TileObjects)
-        {
-            TileBehaviour tile = o.GetComponent("TileBehaviour") as TileBehaviour;
-            Tiles.Add(tile);
         }
     }
 
