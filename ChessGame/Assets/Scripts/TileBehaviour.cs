@@ -6,55 +6,63 @@ using UnityEngine;
 using UnityEngine.UI;
 using ChessGame;
 
-public class TileBehaviour : MonoBehaviour
+namespace ChessGame
 {
-    // class variables
-    public GamePiece OccupyingObject = null;
-
-    // properties
-    [Header("Status")]
-    public bool IsOccupied;
-    public Sector TileSector;
-    public int TileIndex;
-
-    // Start is called before the first frame update
-    void Start()
+    public class TileBehaviour : MonoBehaviour
     {
-        
-    }
+        // class variables
+        public GamePiece OccupyingObject = null;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+        // properties
+        [Header("Status")]
+        public bool IsOccupied;
+        public Sector TileSector;
+        public int TileIndex;
 
-    public void UpdateStatus(GameData data)
-    {
-        UpdateOccupation();
-        ButtonStatus(data);
-    }
-
-    public void UpdateOccupation()
-    {
-        if (OccupyingObject == null)
+        // Start is called before the first frame update
+        void Start()
         {
-            IsOccupied = false;
+
         }
-        else
+
+        // Update is called once per frame
+        void Update()
         {
-            IsOccupied = true;
+
         }
-    }
-    
-    public void ButtonStatus(GameData data)
-    {
-        if (IsOccupied)
+
+        public void UpdateStatus(GameData data)
         {
-            if (OccupyingObject.Color == PieceColor.White && data.MoveCounter % 2 == 0 || OccupyingObject.Color == PieceColor.Black && data.MoveCounter % 2 == 1)
+            UpdateOccupation();
+            ButtonStatus(data);
+        }
+
+        public void UpdateOccupation()
+        {
+            if (OccupyingObject == null)
             {
+                IsOccupied = false;
+            }
+            else
+            {
+                IsOccupied = true;
+            }
+        }
+
+        public void ButtonStatus(GameData data)
+        {
+            if (IsOccupied)
+            {
+                //if (OccupyingObject.Color == PieceColor.White && data.MoveCounter % 2 == 0 || OccupyingObject.Color == PieceColor.Black && data.MoveCounter % 2 == 1)
+                //{
                 Button button = this.gameObject.GetComponent("Button") as Button;
                 button.interactable = false;
+                //}
+                //else
+                //{
+                //    Button button = this.gameObject.GetComponent("Button") as Button;
+                //    button.interactable = true;
+                //}
             }
             else
             {
@@ -62,28 +70,23 @@ public class TileBehaviour : MonoBehaviour
                 button.interactable = true;
             }
         }
-        else
-        {
-            Button button = this.gameObject.GetComponent("Button") as Button;
-            button.interactable = true;
-        }
-    }
 
-    public bool UpdateOccupyingObject(GamePiece piece)
-    {
-        if (!IsOccupied)
+        public bool UpdateOccupyingObject(GamePiece piece)
         {
+            if (!IsOccupied)
+            {
 
-            return true;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
-        else
+
+        public void UpdateGameData(GameData gameData)
         {
-            return false;
+            gameData.NewTile = this;
         }
-    }
-
-    public void UpdateGameData(GameData gameData)
-    {
-        gameData.NewTile = this;
     }
 }

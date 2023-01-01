@@ -37,7 +37,7 @@ public abstract class GamePiece : MonoBehaviour
         data.SelectedPiece = this;
     }
 
-    public void UpdateButtonStatus(GameData data)
+    public virtual void UpdateButtonStatus(GameData data)
     {
         if (Color == PieceColor.White && data.MoveCounter % 2 == 0 || Color == PieceColor.Black && data.MoveCounter % 2 == 1)
         {

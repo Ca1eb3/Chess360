@@ -1,9 +1,9 @@
 // Caleb Smith
 // 12/26/2022
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 namespace ChessGame
 {
