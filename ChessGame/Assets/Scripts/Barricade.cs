@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using ChessGame;
 
 public class Barricade : GamePiece
@@ -22,17 +23,29 @@ public class Barricade : GamePiece
 
     public override bool MoveParameterCheck()
     {
-        if (Convert.ToInt32(NextLocation.TileSector) == SectorOperations.Subtract(TileSector) && NextLocation.TileIndex == TileIndex || Convert.ToInt32(NextLocation.TileSector) == SectorOperations.Add(TileSector) && NextLocation.TileIndex == TileIndex)
+        if (NextLocation.IsOccupied == false)
         {
-            return true;
-        }
-        else if (NextLocation.TileSector == TileSector && NextLocation.TileIndex == TileIndex - 1 || NextLocation.TileSector == TileSector && NextLocation.TileIndex == TileIndex + 1)
-        {
-            return true;
+            if (Convert.ToInt32(NextLocation.TileSector) == SectorOperations.Subtract(TileSector) && NextLocation.TileIndex == TileIndex || Convert.ToInt32(NextLocation.TileSector) == SectorOperations.Add(TileSector) && NextLocation.TileIndex == TileIndex)
+            {
+                return true;
+            }
+            else if (NextLocation.TileSector == TileSector && NextLocation.TileIndex == TileIndex - 1 || NextLocation.TileSector == TileSector && NextLocation.TileIndex == TileIndex + 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         else
         {
             return false;
         }
+    }
+
+    public override void UpdateSceneStatus(GameData data)
+    {
+            this.gameObject.transform.SetAsLastSibling();
     }
 }

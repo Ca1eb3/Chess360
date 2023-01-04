@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ChessGame;
+using Unity.VisualScripting;
 
 public class GameData : MonoBehaviour
 {
@@ -47,6 +48,14 @@ public class GameData : MonoBehaviour
         }
         // update move counter
         MoveCounter++;
+        // Destroy piece in next location if applicable
+        if (NewTile.IsOccupied == true)
+        {
+            GamePieces.Remove(NewTile.OccupyingObject);
+            Destroy(NewTile.OccupyingObject.gameObject);
+            NewTile.OccupyingObject = null;
+            NewTile.UpdateStatus(this);
+        }
         // Change piece position
         SelectedPiece.gameObject.transform.position = SelectedPiece.NextLocation.gameObject.transform.position;
         SelectedPiece.TileSector = SelectedPiece.NextLocation.TileSector;
@@ -63,6 +72,7 @@ public class GameData : MonoBehaviour
         {
             piece.CurrentLocation.UpdateStatus(this);
             piece.UpdateButtonStatus(this);
+            piece.UpdateSceneStatus(this);
         }
     }
 }

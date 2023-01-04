@@ -73,18 +73,4 @@ public class Captain : GamePiece
             return false;
         }
     }
-
-    public override void UpdateButtonStatus(GameData data)
-    {
-        if (Color == PieceColor.White && data.MoveCounter % 2 == 0 || Color == PieceColor.Black && data.MoveCounter % 2 == 1)
-        {
-            Button button = this.gameObject.GetComponent("Button") as Button;
-            button.interactable = true;
-        }
-        else
-        {
-            Button button = this.gameObject.GetComponent("Button") as Button;
-            button.interactable = false;
-        }
-    }
 }

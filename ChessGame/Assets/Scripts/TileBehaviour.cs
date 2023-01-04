@@ -53,16 +53,16 @@ namespace ChessGame
         {
             if (IsOccupied)
             {
-                //if (OccupyingObject.Color == PieceColor.White && data.MoveCounter % 2 == 0 || OccupyingObject.Color == PieceColor.Black && data.MoveCounter % 2 == 1)
-                //{
+                if (OccupyingObject.Color == PieceColor.White && data.MoveCounter % 2 == 0 || OccupyingObject.Color == PieceColor.Black && data.MoveCounter % 2 == 1)
+                {
                 Button button = this.gameObject.GetComponent("Button") as Button;
                 button.interactable = false;
-                //}
-                //else
-                //{
-                //    Button button = this.gameObject.GetComponent("Button") as Button;
-                //    button.interactable = true;
-                //}
+                }
+                else
+                {
+                    Button button = this.gameObject.GetComponent("Button") as Button;
+                    button.interactable = true;
+                }
             }
             else
             {
