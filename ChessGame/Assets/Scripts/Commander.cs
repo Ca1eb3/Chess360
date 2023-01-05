@@ -1,3 +1,5 @@
+// Caleb Smith
+// 01/04/2022
 using ChessGame;
 using System;
 using System.Collections;
@@ -107,7 +109,7 @@ public class Commander : GamePiece
                 return false;
             }
         }
-        else if (SectorOperations.DiagonalMove(NextLocation, CurrentLocation))
+        else if (MovePatterns.DiagonalMove(NextLocation, CurrentLocation))
         {
             return true;
         }
