@@ -25,11 +25,7 @@ public class Barricade : GamePiece
     {
         if (NextLocation.IsOccupied == false)
         {
-            if (Convert.ToInt32(NextLocation.TileSector) == SectorOperations.Subtract(TileSector) && NextLocation.TileIndex == TileIndex || Convert.ToInt32(NextLocation.TileSector) == SectorOperations.Add(TileSector) && NextLocation.TileIndex == TileIndex)
-            {
-                return true;
-            }
-            else if (NextLocation.TileSector == TileSector && NextLocation.TileIndex == TileIndex - 1 || NextLocation.TileSector == TileSector && NextLocation.TileIndex == TileIndex + 1)
+            if (MovePatterns.SingleRadial(NextLocation, CurrentLocation) || MovePatterns.SingleForward(NextLocation, CurrentLocation))
             {
                 return true;
             }

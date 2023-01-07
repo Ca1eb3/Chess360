@@ -15,6 +15,10 @@ public class GameData : MonoBehaviour
     public TileBehaviour NewTile;
     public int MoveCounter = 0;
     public List<GamePiece> GamePieces = new List<GamePiece>();
+    public Overseer OverseerBlack;
+    public Overseer OverseerWhite;
+    public bool IsOver = false;
+    public PieceColor Winner = PieceColor.None;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +28,18 @@ public class GameData : MonoBehaviour
         {
             GamePiece piece = o.GetComponent("GamePiece") as GamePiece;
             GamePieces.Add(piece);
+        }
+        Overseer[] Overseers = GameObject.FindObjectsOfType<Overseer>();
+        foreach (Overseer o in Overseers)
+        {
+            if (o.Color == PieceColor.White)
+            {
+                OverseerWhite = o;
+            }
+            if (o.Color == PieceColor.Black)
+            {
+                OverseerBlack = o;
+            }
         }
     }
 
@@ -52,6 +68,14 @@ public class GameData : MonoBehaviour
         if (NewTile.IsOccupied == true)
         {
             GamePieces.Remove(NewTile.OccupyingObject);
+            if (NewTile.OccupyingObject == OverseerWhite)
+            {
+                OverseerWhite = null;
+            }
+            if (NewTile.OccupyingObject == OverseerBlack)
+            {
+                OverseerBlack = null;
+            }
             Destroy(NewTile.OccupyingObject.gameObject);
             NewTile.OccupyingObject = null;
             NewTile.UpdateStatus(this);
@@ -73,6 +97,22 @@ public class GameData : MonoBehaviour
             piece.CurrentLocation.UpdateStatus(this);
             piece.UpdateButtonStatus(this);
             piece.UpdateSceneStatus(this);
+        }
+        // Check win condition
+        if (OverseerBlack == null)
+        {
+            IsOver = true;
+            Winner = PieceColor.White;
+        }
+        if (OverseerWhite == null)
+        {
+            IsOver = true;
+            Winner = PieceColor.Black;
+        }
+        if (GamePieces.Count == 14)
+        {
+            IsOver = true;
+            Winner = PieceColor.None;
         }
     }
 }

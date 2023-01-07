@@ -1,13 +1,11 @@
 // Caleb Smith
-// 12/31/2022
+// 01/07/2023
 using ChessGame;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class General : GamePiece
+public class Soldier : GamePiece
 {
     // Start is called before the first frame update
     void Start()
@@ -20,13 +18,14 @@ public class General : GamePiece
     {
         
     }
+
     public override bool MoveParameterCheck()
     {
-        if (MovePatterns.SingleForward(NextLocation, CurrentLocation))
+        if (MovePatterns.SingleRadial(NextLocation, CurrentLocation) || MovePatterns.SingleForward(NextLocation, CurrentLocation) || MovePatterns.SingleDiagonal(NextLocation, CurrentLocation))
         {
             return true;
         }
-        else if (MovePatterns.Radial(NextLocation, CurrentLocation))
+        else if (MovePatterns.SoldierBarricadeJump(NextLocation, CurrentLocation))
         {
             return true;
         }

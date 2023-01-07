@@ -23,50 +23,13 @@ public class Captain : GamePiece
 
     public override bool MoveParameterCheck()
     {
-        if (Convert.ToInt32(NextLocation.TileSector) == SectorOperations.Subtract(TileSector) && NextLocation.TileIndex == TileIndex || Convert.ToInt32(NextLocation.TileSector) == SectorOperations.Add(TileSector) && NextLocation.TileIndex == TileIndex)
+        if (MovePatterns.SingleRadial(NextLocation, CurrentLocation))
         {
             return true;
         }
-        else if (NextLocation.TileSector == TileSector)
+        else if (MovePatterns.Forward(NextLocation, CurrentLocation))
         {
-            if (NextLocation.TileIndex < TileIndex)
-            {
-                int i = TileIndex - 1;
-                while (i > NextLocation.TileIndex)
-                {
-                    string objectName = TileSector.ToString();
-                    objectName += Convert.ToString(i);
-                    GameObject o = GameObject.Find($"{objectName}");
-                    TileBehaviour tile = o.GetComponent("TileBehaviour") as TileBehaviour;
-                    if (tile.IsOccupied == true)
-                    {
-                        return false;
-                    }
-                    i--;
-                }
-                return true;
-            }
-            if (NextLocation.TileIndex > TileIndex)
-            {
-                int i = TileIndex + 1;
-                while (i < NextLocation.TileIndex)
-                {
-                    string objectName = TileSector.ToString();
-                    objectName += Convert.ToString(i);
-                    GameObject o = GameObject.Find($"{objectName}");
-                    TileBehaviour tile = o.GetComponent("TileBehaviour") as TileBehaviour;
-                    if (tile.IsOccupied == true)
-                    {
-                        return false;
-                    }
-                    i++;
-                }
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return true;
         }
         else
         {

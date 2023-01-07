@@ -9,6 +9,7 @@ namespace ChessGame
     public enum PieceColor
     {
         Black,
-        White
+        White,
+        None
     }
 }
