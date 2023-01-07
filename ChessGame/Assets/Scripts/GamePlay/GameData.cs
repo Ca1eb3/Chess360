@@ -56,6 +56,11 @@ public class GameData : MonoBehaviour
 
     public void MakeMove()
     {
+        // Null Reference Check
+        if (SelectedPiece == null)
+        {
+            return;
+        }
         // Set pieces next location
         SelectedPiece.NextLocation = NewTile;
         // Do move checks
