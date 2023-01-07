@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ChessGame;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 public class GameData : MonoBehaviour
 {
@@ -47,6 +48,10 @@ public class GameData : MonoBehaviour
     void Update()
     {
 
+    }
+    public void LoadMenu()
+    {
+        SceneManager.LoadScene("TitleScreen");
     }
 
     public void MakeMove()
@@ -103,16 +108,19 @@ public class GameData : MonoBehaviour
         {
             IsOver = true;
             Winner = PieceColor.White;
+            LoadMenu();
         }
         if (OverseerWhite == null)
         {
             IsOver = true;
             Winner = PieceColor.Black;
+            LoadMenu();
         }
         if (GamePieces.Count == 14)
         {
             IsOver = true;
             Winner = PieceColor.None;
+            LoadMenu();
         }
     }
 }
