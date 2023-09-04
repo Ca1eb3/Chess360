@@ -6,6 +6,8 @@ using UnityEngine;
 using ChessGame;
 using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
+using TMPro;
+using System;
 
 public class GameData : MonoBehaviour
 {
@@ -20,16 +22,36 @@ public class GameData : MonoBehaviour
     public Overseer OverseerWhite;
     public bool IsOver = false;
     public PieceColor Winner = PieceColor.None;
+    public TextMeshProUGUI MoveRecordText;
 
     // Start is called before the first frame update
     void Start()
     {
         GameObject[] PieceObjects = GameObject.FindGameObjectsWithTag("Pieces");
+        GameObject text = GameObject.Find("MoveRecordText");
+        MoveRecordText = text.GetComponent<TextMeshProUGUI>();
         foreach (GameObject o in PieceObjects)
         {
             GamePiece piece = o.GetComponent("GamePiece") as GamePiece;
             GamePieces.Add(piece);
         }
+        UpdateOverseers();
+    }
+    
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+    public void LoadMenu()
+    {
+        SceneManager.LoadScene("TitleScreen");
+    }
+
+    public void UpdateOverseers()
+    {
+        OverseerBlack = null;
+        OverseerWhite = null;
         Overseer[] Overseers = GameObject.FindObjectsOfType<Overseer>();
         foreach (Overseer o in Overseers)
         {
@@ -44,18 +66,27 @@ public class GameData : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-    public void LoadMenu()
-    {
-        SceneManager.LoadScene("TitleScreen");
-    }
-
     public void MakeMove()
     {
+        // string to append move to move record
+        string moveRecordStringAppend = "";
+        if (MoveCounter % 2 == 0)
+        {
+            if (MoveCounter == 0)
+            {
+                int moveNumber = MoveCounter / 2 + 1;
+                moveRecordStringAppend = moveNumber + ". ";
+            }
+            else
+            {
+                int moveNumber = MoveCounter / 2 + 1;
+                moveRecordStringAppend = " " + moveNumber + ". ";
+            }
+        }
+        else
+        {
+            moveRecordStringAppend = " ";
+        }
         // Null Reference Check
         if (SelectedPiece == null)
         {
@@ -72,23 +103,24 @@ public class GameData : MonoBehaviour
         {
             return;
         }
+        // append new tile to move record string
+        moveRecordStringAppend = moveRecordStringAppend + SelectedPiece.PieceType.ToString() + SelectedPiece.NextLocation.TileSector.ToString() + SelectedPiece.NextLocation.TileIndex.ToString();
         // update move counter
         MoveCounter++;
         // Destroy piece in next location if applicable
         if (NewTile.IsOccupied == true)
         {
+            string pieceDestroyed = "x";
             GamePieces.Remove(NewTile.OccupyingObject);
-            if (NewTile.OccupyingObject == OverseerWhite)
+            if (NewTile.OccupyingObject.PieceType == PieceString.O)
             {
-                OverseerWhite = null;
-            }
-            if (NewTile.OccupyingObject == OverseerBlack)
-            {
-                OverseerBlack = null;
+                UpdateOverseers();
+                pieceDestroyed = "#";
             }
             Destroy(NewTile.OccupyingObject.gameObject);
             NewTile.OccupyingObject = null;
             NewTile.UpdateStatus(this);
+            moveRecordStringAppend = moveRecordStringAppend + pieceDestroyed;
         }
         // Change piece position
         SelectedPiece.gameObject.transform.position = SelectedPiece.NextLocation.gameObject.transform.position;
@@ -113,19 +145,18 @@ public class GameData : MonoBehaviour
         {
             IsOver = true;
             Winner = PieceColor.White;
-            LoadMenu();
         }
         if (OverseerWhite == null)
         {
             IsOver = true;
             Winner = PieceColor.Black;
-            LoadMenu();
         }
         if (GamePieces.Count == 14)
         {
             IsOver = true;
             Winner = PieceColor.None;
-            LoadMenu();
         }
+        // Update Move Record
+        MoveRecordText.text = MoveRecordText.text + moveRecordStringAppend;
     }
 }

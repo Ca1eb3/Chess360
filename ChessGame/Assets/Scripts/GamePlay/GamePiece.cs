@@ -16,6 +16,7 @@ public abstract class GamePiece : MonoBehaviour
     // properties
     [Header("Status")]
     public PieceColor Color;
+    public PieceString PieceType;
     public Sector TileSector;
     public int TileIndex;
 
