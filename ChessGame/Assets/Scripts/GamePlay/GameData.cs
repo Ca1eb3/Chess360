@@ -8,6 +8,7 @@ using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System;
+using UnityEngine.UIElements;
 
 public class GameData : MonoBehaviour
 {
@@ -23,13 +24,14 @@ public class GameData : MonoBehaviour
     public bool IsOver = false;
     public PieceColor Winner = PieceColor.None;
     public TextMeshProUGUI MoveRecordText;
+    public GameObject MoveRecordContent;
 
     // Start is called before the first frame update
     void Start()
     {
         GameObject[] PieceObjects = GameObject.FindGameObjectsWithTag("Pieces");
-        GameObject text = GameObject.Find("MoveRecordText");
-        MoveRecordText = text.GetComponent<TextMeshProUGUI>();
+        MoveRecordContent = GameObject.Find("MoveRecordContent");
+        MoveRecordText = MoveRecordContent.GetComponent<TextMeshProUGUI>().ConvertTo<TextMeshProUGUI>();
         foreach (GameObject o in PieceObjects)
         {
             GamePiece piece = o.GetComponent("GamePiece") as GamePiece;
