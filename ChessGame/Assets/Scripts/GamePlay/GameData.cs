@@ -126,6 +126,7 @@ public class GameData : MonoBehaviour
         }
         // append new tile to move record string
         moveRecordStringAppend = moveRecordStringAppend + SelectedPiece.PieceType.ToString() + SelectedPiece.NextLocation.TileSector.ToString() + SelectedPiece.NextLocation.TileIndex.ToString();
+        // The below code should only execute if all checks have passed
         // update move counter
         MoveCounter++;
         // Destroy piece in next location if applicable
