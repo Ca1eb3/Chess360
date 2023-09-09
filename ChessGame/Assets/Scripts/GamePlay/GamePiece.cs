@@ -11,6 +11,7 @@ public abstract class GamePiece : MonoBehaviour
     // class variables
     public TileBehaviour CurrentLocation;
     public TileBehaviour NextLocation;
+    public bool AttacksOverseer = false;
 
 
     // properties
@@ -64,5 +65,15 @@ public abstract class GamePiece : MonoBehaviour
         }
     }
 
-    public abstract bool MoveParameterCheck();
+    public bool MoveParameterCheckCurrentState()
+    {
+        return MoveParameterCheck(NextLocation, CurrentLocation);
+    }
+
+    public bool AttackOverseerCheck(Overseer overseer)
+    {
+        return MoveParameterCheck(overseer.CurrentLocation, NextLocation);
+    }
+
+    public abstract bool MoveParameterCheck(TileBehaviour nextLocation, TileBehaviour currentLocation);
 }

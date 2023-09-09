@@ -20,13 +20,13 @@ public class General : GamePiece
     {
         
     }
-    public override bool MoveParameterCheck()
+    public override bool MoveParameterCheck(TileBehaviour nextLocation, TileBehaviour currentLocation)
     {
-        if (MovePatterns.SingleForward(NextLocation, CurrentLocation))
+        if (MovePatterns.SingleForward(nextLocation, currentLocation))
         {
             return true;
         }
-        else if (MovePatterns.Radial(NextLocation, CurrentLocation))
+        else if (MovePatterns.Radial(nextLocation, currentLocation))
         {
             return true;
         }

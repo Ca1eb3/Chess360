@@ -19,6 +19,8 @@ public class GameData : MonoBehaviour
     public TileBehaviour NewTile;
     public int MoveCounter = 0;
     public List<GamePiece> GamePieces = new List<GamePiece>();
+    public List<GamePiece> WhiteGamePieces = new List<GamePiece>();
+    public List<GamePiece> BlackGamePieces = new List<GamePiece>();
     public Overseer OverseerBlack;
     public Overseer OverseerWhite;
     public bool IsOver = false;
@@ -29,14 +31,9 @@ public class GameData : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject[] PieceObjects = GameObject.FindGameObjectsWithTag("Pieces");
+        UpdateGamePieces();
         MoveRecordContent = GameObject.Find("MoveRecordContent");
         MoveRecordText = MoveRecordContent.GetComponent<TextMeshProUGUI>().ConvertTo<TextMeshProUGUI>();
-        foreach (GameObject o in PieceObjects)
-        {
-            GamePiece piece = o.GetComponent("GamePiece") as GamePiece;
-            GamePieces.Add(piece);
-        }
         UpdateOverseers();
     }
     
@@ -45,6 +42,28 @@ public class GameData : MonoBehaviour
     {
 
     }
+
+    public void UpdateGamePieces()
+    {
+        GamePieces.Clear();
+        WhiteGamePieces.Clear();
+        BlackGamePieces.Clear();
+        GameObject[] PieceObjects = GameObject.FindGameObjectsWithTag("Pieces");
+        foreach (GameObject o in PieceObjects)
+        {
+            GamePiece piece = o.GetComponent("GamePiece") as GamePiece;
+            GamePieces.Add(piece);
+            if (piece.Color == PieceColor.White)
+            {
+                WhiteGamePieces.Add(piece);
+            }
+            else
+            {
+                BlackGamePieces.Add(piece);
+            }
+        }
+    }
+
     public void LoadMenu()
     {
         SceneManager.LoadScene("TitleScreen");
@@ -101,7 +120,7 @@ public class GameData : MonoBehaviour
         {
             return;
         }
-        if (SelectedPiece.MoveParameterCheck() == false)
+        if (SelectedPiece.MoveParameterCheckCurrentState() == false)
         {
             return;
         }
@@ -160,5 +179,10 @@ public class GameData : MonoBehaviour
         }
         // Update Move Record
         MoveRecordText.text = MoveRecordText.text + moveRecordStringAppend;
+    }
+
+    public void CheckmateAnalyzer()
+    {
+
     }
 }
