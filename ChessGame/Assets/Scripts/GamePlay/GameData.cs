@@ -249,11 +249,7 @@ public class GameData : MonoBehaviour
         }
         if (!IsOver)
         {
-            if (MoveCounter % 2 == 0 && CheckBlack == true) 
-            {
-                moveRecordStringAppend += "+";
-            }
-            if (MoveCounter % 2 == 1 && CheckWhite == true)
+            if (CheckBlack == true || CheckWhite == true)
             {
                 moveRecordStringAppend += "+";
             }
