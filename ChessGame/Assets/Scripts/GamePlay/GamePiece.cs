@@ -11,6 +11,7 @@ public abstract class GamePiece : MonoBehaviour
     // class variables
     public TileBehaviour CurrentLocation;
     public TileBehaviour NextLocation;
+    public TileBehaviour PreviousLocation;
     public bool AttacksOverseer = false;
 
 

@@ -27,6 +27,7 @@ public class GameData : MonoBehaviour
     public PieceColor Winner = PieceColor.None;
     public TextMeshProUGUI MoveRecordText;
     public GameObject MoveRecordContent;
+    public GamePiece RemovedPiece;
 
     // Start is called before the first frame update
     void Start()
@@ -124,6 +125,57 @@ public class GameData : MonoBehaviour
         {
             return;
         }
+        if (true)
+        {
+            // Destroy piece in next location if applicable
+            if (NewTile.IsOccupied == true)
+            {
+                RemovePiece();
+            }
+            // Change piece position
+            SelectedPiece.TileSector = SelectedPiece.NextLocation.TileSector;
+            SelectedPiece.TileIndex = SelectedPiece.NextLocation.TileIndex;
+            // Update piece location
+            SelectedPiece.PreviousLocation = SelectedPiece.CurrentLocation;
+            SelectedPiece.CurrentLocation = SelectedPiece.NextLocation;
+            // update original tile and new tile
+            NewTile.OccupyingObject = CurrentTile.OccupyingObject;
+            CurrentTile.OccupyingObject = null;
+            CurrentTile.UpdateStatus(this);
+            NewTile.UpdateStatus(this);
+            foreach (var piece in GamePieces)
+            {
+                piece.CurrentLocation.UpdateStatus(this);
+                piece.UpdateButtonStatus(this);
+                piece.UpdateSceneStatus(this);
+            }
+
+
+            // replace
+            // Destroy piece in next location if applicable
+            // Change piece position
+            SelectedPiece.TileSector = SelectedPiece.PreviousLocation.TileSector;
+            SelectedPiece.TileIndex = SelectedPiece.PreviousLocation.TileIndex;
+            // Update piece location
+            SelectedPiece.CurrentLocation = SelectedPiece.PreviousLocation;
+            SelectedPiece.PreviousLocation = null;
+            // update original tile and new tile
+            CurrentTile.OccupyingObject = NewTile.OccupyingObject;
+            NewTile.OccupyingObject = null;
+            if (RemovedPiece != null)
+            {
+                ReplacePiece();
+                RemovedPiece = null;
+            }
+            CurrentTile.UpdateStatus(this);
+            NewTile.UpdateStatus(this);
+            foreach (var piece in GamePieces)
+            {
+                piece.CurrentLocation.UpdateStatus(this);
+                piece.UpdateButtonStatus(this);
+                piece.UpdateSceneStatus(this);
+            }
+        }
         // append new tile to move record string
         moveRecordStringAppend = moveRecordStringAppend + SelectedPiece.PieceType.ToString() + SelectedPiece.NextLocation.TileSector.ToString() + SelectedPiece.NextLocation.TileIndex.ToString();
         // The below code should only execute if all checks have passed
@@ -132,16 +184,14 @@ public class GameData : MonoBehaviour
         // Destroy piece in next location if applicable
         if (NewTile.IsOccupied == true)
         {
+            
             string pieceDestroyed = "x";
-            GamePieces.Remove(NewTile.OccupyingObject);
             if (NewTile.OccupyingObject.PieceType == PieceString.O)
             {
                 UpdateOverseers();
                 pieceDestroyed = "#";
             }
-            Destroy(NewTile.OccupyingObject.gameObject);
-            NewTile.OccupyingObject = null;
-            NewTile.UpdateStatus(this);
+            DestroyPiece();
             moveRecordStringAppend = moveRecordStringAppend + pieceDestroyed;
         }
         // Change piece position
@@ -180,6 +230,27 @@ public class GameData : MonoBehaviour
         }
         // Update Move Record
         MoveRecordText.text = MoveRecordText.text + moveRecordStringAppend;
+    }
+
+    public void DestroyPiece()
+    {
+        GamePieces.Remove(NewTile.OccupyingObject);
+        Destroy(NewTile.OccupyingObject.gameObject);
+        NewTile.OccupyingObject = null;
+        NewTile.UpdateStatus(this);
+    }
+
+    public void RemovePiece()
+    {
+        RemovedPiece = NewTile.OccupyingObject;
+        NewTile.OccupyingObject = null;
+        NewTile.UpdateStatus(this);
+    }
+
+    public void ReplacePiece()
+    {
+        NewTile.OccupyingObject = RemovedPiece;
+        NewTile.UpdateStatus(this);
     }
 
     public void CheckmateAnalyzer()
