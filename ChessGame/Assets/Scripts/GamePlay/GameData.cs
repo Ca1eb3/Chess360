@@ -28,6 +28,8 @@ public class GameData : MonoBehaviour
     public TextMeshProUGUI MoveRecordText;
     public GameObject MoveRecordContent;
     public GamePiece RemovedPiece;
+    public bool CheckBlack = false;
+    public bool CheckWhite = false;
 
     // Start is called before the first frame update
     void Start()
@@ -149,6 +151,23 @@ public class GameData : MonoBehaviour
                 piece.UpdateButtonStatus(this);
                 piece.UpdateSceneStatus(this);
             }
+            // The game is in the probable next game state
+            foreach (var piece in BlackGamePieces)
+            {
+                if (piece.AttackOverseerCheck(OverseerWhite))
+                {
+                    CheckWhite = true;
+                }
+            }
+            foreach (var piece in WhiteGamePieces)
+            {
+                if (piece.AttackOverseerCheck(OverseerBlack))
+                {
+                    CheckBlack = true;
+                }
+            }
+
+
 
 
             // replace
@@ -227,6 +246,19 @@ public class GameData : MonoBehaviour
         {
             IsOver = true;
             Winner = PieceColor.None;
+        }
+        if (!IsOver)
+        {
+            if (MoveCounter % 2 == 0 && CheckBlack == true) 
+            {
+                moveRecordStringAppend += "+";
+            }
+            if (MoveCounter % 2 == 1 && CheckWhite == true)
+            {
+                moveRecordStringAppend += "+";
+            }
+            CheckBlack = false;
+            CheckWhite = false;
         }
         // Update Move Record
         MoveRecordText.text = MoveRecordText.text + moveRecordStringAppend;
