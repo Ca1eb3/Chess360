@@ -241,6 +241,9 @@ namespace ChessGame
                 temp.TileSector = (Sector)SectorOperations.Subtract(temp.TileSector);
             }
 
+            // removes instance of temporary gameobject
+            GameObject.Destroy(tempObject.gameObject);
+
             if (IsValidMove[0] || IsValidMove[1] || IsValidMove[2] || IsValidMove[3])
             {
                 return true;
@@ -349,6 +352,9 @@ namespace ChessGame
                 temp.TileSector = (Sector)SectorOperations.Subtract(temp.TileSector);
             }
 
+            // removes instance of temporary gameobject
+            GameObject.Destroy(tempObject.gameObject);
+
             if (IsValidMove[0] || IsValidMove[1] || IsValidMove[2] || IsValidMove[3])
             {
                 return true;
@@ -374,6 +380,10 @@ namespace ChessGame
                 string objectName = $"{temp.TileSector}{temp.TileIndex}";
                 GameObject o = GameObject.Find($"{objectName}");
                 TileBehaviour tile = o.GetComponent("TileBehaviour") as TileBehaviour;
+
+                // removes instance of temporary gameobject
+                GameObject.Destroy(tempObject.gameObject);
+
                 if (tile.IsOccupied)
                 {
                     if (tile.OccupyingObject.TryGetComponent(out Barricade barricade))
@@ -396,6 +406,10 @@ namespace ChessGame
                 string objectName = $"{temp.TileSector}{temp.TileIndex}";
                 GameObject o = GameObject.Find($"{objectName}");
                 TileBehaviour tile = o.GetComponent("TileBehaviour") as TileBehaviour;
+
+                // removes instance of temporary gameobject
+                GameObject.Destroy(tempObject.gameObject);
+
                 if (tile.IsOccupied)
                 {
                     if (tile.OccupyingObject.TryGetComponent(out Barricade barricade))
@@ -419,6 +433,10 @@ namespace ChessGame
                 string objectName = $"{temp.TileSector}{temp.TileIndex}";
                 GameObject o = GameObject.Find($"{objectName}");
                 TileBehaviour tile = o.GetComponent("TileBehaviour") as TileBehaviour;
+
+                // removes instance of temporary gameobject
+                GameObject.Destroy(tempObject.gameObject);
+
                 if (tile.IsOccupied)
                 {
                     if (tile.OccupyingObject.TryGetComponent(out Barricade barricade))
@@ -441,6 +459,10 @@ namespace ChessGame
                 string objectName = $"{temp.TileSector}{temp.TileIndex}";
                 GameObject o = GameObject.Find($"{objectName}");
                 TileBehaviour tile = o.GetComponent("TileBehaviour") as TileBehaviour;
+
+                // removes instance of temporary gameobject
+                GameObject.Destroy(tempObject.gameObject);
+
                 if (tile.IsOccupied)
                 {
                     if (tile.OccupyingObject.TryGetComponent(out Barricade barricade))
@@ -465,6 +487,10 @@ namespace ChessGame
                 string objectName = $"{temp.TileSector}{temp.TileIndex}";
                 GameObject o = GameObject.Find($"{objectName}");
                 TileBehaviour tile = o.GetComponent("TileBehaviour") as TileBehaviour;
+
+                // removes instance of temporary gameobject
+                GameObject.Destroy(tempObject.gameObject);
+
                 if (tile.IsOccupied)
                 {
                     if (tile.OccupyingObject.TryGetComponent(out Barricade barricade))
@@ -488,6 +514,10 @@ namespace ChessGame
                 string objectName = $"{temp.TileSector}{temp.TileIndex}";
                 GameObject o = GameObject.Find($"{objectName}");
                 TileBehaviour tile = o.GetComponent("TileBehaviour") as TileBehaviour;
+
+                // removes instance of temporary gameobject
+                GameObject.Destroy(tempObject.gameObject);
+
                 if (tile.IsOccupied)
                 {
                     if (tile.OccupyingObject.TryGetComponent(out Barricade barricade))
@@ -511,6 +541,10 @@ namespace ChessGame
                 string objectName = $"{temp.TileSector}{temp.TileIndex}";
                 GameObject o = GameObject.Find($"{objectName}");
                 TileBehaviour tile = o.GetComponent("TileBehaviour") as TileBehaviour;
+
+                // removes instance of temporary gameobject
+                GameObject.Destroy(tempObject.gameObject);
+
                 if (tile.IsOccupied)
                 {
                     if (tile.OccupyingObject.TryGetComponent(out Barricade barricade))
@@ -534,6 +568,10 @@ namespace ChessGame
                 string objectName = $"{temp.TileSector}{temp.TileIndex}";
                 GameObject o = GameObject.Find($"{objectName}");
                 TileBehaviour tile = o.GetComponent("TileBehaviour") as TileBehaviour;
+
+                // removes instance of temporary gameobject
+                GameObject.Destroy(tempObject.gameObject);
+
                 if (tile.IsOccupied)
                 {
                     if (tile.OccupyingObject.TryGetComponent(out Barricade barricade))
@@ -552,6 +590,9 @@ namespace ChessGame
             }
             else
             {
+                // removes instance of temporary gameobject
+                GameObject.Destroy(tempObject.gameObject);
+
                 return false;
             }
         }
