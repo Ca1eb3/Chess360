@@ -19,24 +19,24 @@ public class GameData : MonoBehaviour
     public TileBehaviour NewTile;
     public int MoveCounter = 0;
     public List<GamePiece> GamePieces = new List<GamePiece>();
+    public List<GamePiece> WhiteGamePieces = new List<GamePiece>();
+    public List<GamePiece> BlackGamePieces = new List<GamePiece>();
     public Overseer OverseerBlack;
     public Overseer OverseerWhite;
     public bool IsOver = false;
     public PieceColor Winner = PieceColor.None;
     public TextMeshProUGUI MoveRecordText;
     public GameObject MoveRecordContent;
+    public GamePiece RemovedPiece;
+    public bool CheckBlack = false;
+    public bool CheckWhite = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        GameObject[] PieceObjects = GameObject.FindGameObjectsWithTag("Pieces");
+        UpdateGamePieces();
         MoveRecordContent = GameObject.Find("MoveRecordContent");
         MoveRecordText = MoveRecordContent.GetComponent<TextMeshProUGUI>().ConvertTo<TextMeshProUGUI>();
-        foreach (GameObject o in PieceObjects)
-        {
-            GamePiece piece = o.GetComponent("GamePiece") as GamePiece;
-            GamePieces.Add(piece);
-        }
         UpdateOverseers();
     }
     
@@ -45,6 +45,28 @@ public class GameData : MonoBehaviour
     {
 
     }
+
+    public void UpdateGamePieces()
+    {
+        GamePieces.Clear();
+        WhiteGamePieces.Clear();
+        BlackGamePieces.Clear();
+        GameObject[] PieceObjects = GameObject.FindGameObjectsWithTag("Pieces");
+        foreach (GameObject o in PieceObjects)
+        {
+            GamePiece piece = o.GetComponent("GamePiece") as GamePiece;
+            GamePieces.Add(piece);
+            if (piece.Color == PieceColor.White)
+            {
+                WhiteGamePieces.Add(piece);
+            }
+            else
+            {
+                BlackGamePieces.Add(piece);
+            }
+        }
+    }
+
     public void LoadMenu()
     {
         SceneManager.LoadScene("TitleScreen");
@@ -101,27 +123,94 @@ public class GameData : MonoBehaviour
         {
             return;
         }
-        if (SelectedPiece.MoveParameterCheck() == false)
+        if (SelectedPiece.MoveParameterCheckCurrentState() == false)
         {
             return;
         }
+        if (true)
+        {
+            // Destroy piece in next location if applicable
+            if (NewTile.IsOccupied == true)
+            {
+                RemovePiece();
+            }
+            // Change piece position
+            SelectedPiece.TileSector = SelectedPiece.NextLocation.TileSector;
+            SelectedPiece.TileIndex = SelectedPiece.NextLocation.TileIndex;
+            // Update piece location
+            SelectedPiece.PreviousLocation = SelectedPiece.CurrentLocation;
+            SelectedPiece.CurrentLocation = SelectedPiece.NextLocation;
+            // update original tile and new tile
+            NewTile.OccupyingObject = CurrentTile.OccupyingObject;
+            CurrentTile.OccupyingObject = null;
+            CurrentTile.UpdateStatus(this);
+            NewTile.UpdateStatus(this);
+            foreach (var piece in GamePieces)
+            {
+                piece.CurrentLocation.UpdateStatus(this);
+                piece.UpdateButtonStatus(this);
+                piece.UpdateSceneStatus(this);
+            }
+            // The game is in the probable next game state
+            foreach (var piece in BlackGamePieces)
+            {
+                if (piece.AttackOverseerCheck(OverseerWhite))
+                {
+                    CheckWhite = true;
+                }
+            }
+            foreach (var piece in WhiteGamePieces)
+            {
+                if (piece.AttackOverseerCheck(OverseerBlack))
+                {
+                    CheckBlack = true;
+                }
+            }
+
+
+
+
+            // replace
+            // Destroy piece in next location if applicable
+            // Change piece position
+            SelectedPiece.TileSector = SelectedPiece.PreviousLocation.TileSector;
+            SelectedPiece.TileIndex = SelectedPiece.PreviousLocation.TileIndex;
+            // Update piece location
+            SelectedPiece.CurrentLocation = SelectedPiece.PreviousLocation;
+            SelectedPiece.PreviousLocation = null;
+            // update original tile and new tile
+            CurrentTile.OccupyingObject = NewTile.OccupyingObject;
+            NewTile.OccupyingObject = null;
+            if (RemovedPiece != null)
+            {
+                ReplacePiece();
+                RemovedPiece = null;
+            }
+            CurrentTile.UpdateStatus(this);
+            NewTile.UpdateStatus(this);
+            foreach (var piece in GamePieces)
+            {
+                piece.CurrentLocation.UpdateStatus(this);
+                piece.UpdateButtonStatus(this);
+                piece.UpdateSceneStatus(this);
+            }
+        }
         // append new tile to move record string
         moveRecordStringAppend = moveRecordStringAppend + SelectedPiece.PieceType.ToString() + SelectedPiece.NextLocation.TileSector.ToString() + SelectedPiece.NextLocation.TileIndex.ToString();
+        // The below code should only execute if all checks have passed
         // update move counter
         MoveCounter++;
         // Destroy piece in next location if applicable
         if (NewTile.IsOccupied == true)
         {
+            
             string pieceDestroyed = "x";
-            GamePieces.Remove(NewTile.OccupyingObject);
             if (NewTile.OccupyingObject.PieceType == PieceString.O)
             {
                 UpdateOverseers();
                 pieceDestroyed = "#";
             }
-            Destroy(NewTile.OccupyingObject.gameObject);
-            NewTile.OccupyingObject = null;
-            NewTile.UpdateStatus(this);
+            DestroyPiece();
             moveRecordStringAppend = moveRecordStringAppend + pieceDestroyed;
         }
         // Change piece position
@@ -158,7 +247,46 @@ public class GameData : MonoBehaviour
             IsOver = true;
             Winner = PieceColor.None;
         }
+        if (!IsOver)
+        {
+            if (MoveCounter % 2 == 0 && CheckBlack == true) 
+            {
+                moveRecordStringAppend += "+";
+            }
+            if (MoveCounter % 2 == 1 && CheckWhite == true)
+            {
+                moveRecordStringAppend += "+";
+            }
+            CheckBlack = false;
+            CheckWhite = false;
+        }
         // Update Move Record
         MoveRecordText.text = MoveRecordText.text + moveRecordStringAppend;
+    }
+
+    public void DestroyPiece()
+    {
+        GamePieces.Remove(NewTile.OccupyingObject);
+        Destroy(NewTile.OccupyingObject.gameObject);
+        NewTile.OccupyingObject = null;
+        NewTile.UpdateStatus(this);
+    }
+
+    public void RemovePiece()
+    {
+        RemovedPiece = NewTile.OccupyingObject;
+        NewTile.OccupyingObject = null;
+        NewTile.UpdateStatus(this);
+    }
+
+    public void ReplacePiece()
+    {
+        NewTile.OccupyingObject = RemovedPiece;
+        NewTile.UpdateStatus(this);
+    }
+
+    public void CheckmateAnalyzer()
+    {
+
     }
 }

@@ -20,9 +20,9 @@ public class Pilot : GamePiece
         
     }
 
-    public override bool MoveParameterCheck()
+    public override bool MoveParameterCheck(TileBehaviour nextLocation, TileBehaviour currentLocation)
     {
-        if (MovePatterns.DiagonalMovePilot(NextLocation, CurrentLocation))
+        if (MovePatterns.DiagonalMovePilot(nextLocation, currentLocation))
         {
             return true;
         }

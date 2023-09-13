@@ -21,11 +21,11 @@ public class Barricade : GamePiece
         
     }
 
-    public override bool MoveParameterCheck()
+    public override bool MoveParameterCheck(TileBehaviour nextLocation, TileBehaviour currentLocation)
     {
-        if (NextLocation.IsOccupied == false)
+        if (nextLocation.IsOccupied == false)
         {
-            if (MovePatterns.SingleRadial(NextLocation, CurrentLocation) || MovePatterns.SingleForward(NextLocation, CurrentLocation))
+            if (MovePatterns.SingleRadial(nextLocation, currentLocation) || MovePatterns.SingleForward(nextLocation, currentLocation))
             {
                 return true;
             }

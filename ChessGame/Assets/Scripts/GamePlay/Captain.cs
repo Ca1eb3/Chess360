@@ -21,13 +21,13 @@ public class Captain : GamePiece
         
     }
 
-    public override bool MoveParameterCheck()
+    public override bool MoveParameterCheck(TileBehaviour nextLocation, TileBehaviour currentLocation)
     {
-        if (MovePatterns.SingleRadial(NextLocation, CurrentLocation))
+        if (MovePatterns.SingleRadial(nextLocation, currentLocation))
         {
             return true;
         }
-        else if (MovePatterns.Forward(NextLocation, CurrentLocation))
+        else if (MovePatterns.Forward(nextLocation, currentLocation))
         {
             return true;
         }

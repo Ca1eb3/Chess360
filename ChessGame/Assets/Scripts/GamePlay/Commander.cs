@@ -20,9 +20,9 @@ public class Commander : GamePiece
         
     }
 
-    public override bool MoveParameterCheck()
+    public override bool MoveParameterCheck(TileBehaviour nextLocation, TileBehaviour currentLocation)
     {
-        if (MovePatterns.Forward(NextLocation, CurrentLocation) || MovePatterns.Radial(NextLocation, CurrentLocation) || MovePatterns.Diagonal(NextLocation, CurrentLocation))
+        if (MovePatterns.Forward(nextLocation, currentLocation) || MovePatterns.Radial(nextLocation, currentLocation) || MovePatterns.Diagonal(nextLocation, currentLocation))
         {
             return true;
         }

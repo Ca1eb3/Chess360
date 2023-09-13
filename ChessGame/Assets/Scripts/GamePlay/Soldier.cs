@@ -19,13 +19,13 @@ public class Soldier : GamePiece
         
     }
 
-    public override bool MoveParameterCheck()
+    public override bool MoveParameterCheck(TileBehaviour nextLocation, TileBehaviour currentLocation)
     {
-        if (MovePatterns.SingleRadial(NextLocation, CurrentLocation) || MovePatterns.SingleForward(NextLocation, CurrentLocation) || MovePatterns.SingleDiagonal(NextLocation, CurrentLocation))
+        if (MovePatterns.SingleRadial(nextLocation, currentLocation) || MovePatterns.SingleForward(nextLocation, currentLocation) || MovePatterns.SingleDiagonal(nextLocation, currentLocation))
         {
             return true;
         }
-        else if (MovePatterns.SoldierBarricadeJump(NextLocation, CurrentLocation))
+        else if (MovePatterns.SoldierBarricadeJump(nextLocation, currentLocation))
         {
             return true;
         }
