@@ -2295,7 +2295,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0.8565458}
-  m_AnchoredPosition: {x: -91.50101, y: 28.690538}
+  m_AnchoredPosition: {x: -91.50101, y: 28.690817}
   m_SizeDelta: {x: 183, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!23 &258839400
@@ -2423,7 +2423,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 4.9393125, z: 0, w: -1203.7102}
+  m_margin: {x: 5, y: 5, z: 5, w: -1203.7102}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2614,12 +2614,17 @@ MonoBehaviour:
   NewTile: {fileID: 0}
   MoveCounter: 0
   GamePieces: []
+  WhiteGamePieces: []
+  BlackGamePieces: []
   OverseerBlack: {fileID: 0}
   OverseerWhite: {fileID: 0}
   IsOver: 0
   Winner: 2
   MoveRecordText: {fileID: 0}
   MoveRecordContent: {fileID: 0}
+  RemovedPiece: {fileID: 0}
+  CheckBlack: 0
+  CheckWhite: 0
 --- !u!4 &268695267
 Transform:
   m_ObjectHideFlags: 0
@@ -22032,7 +22037,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 129000547}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.9999651
+  m_Size: 0.9975892
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
