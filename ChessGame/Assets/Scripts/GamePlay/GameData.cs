@@ -30,6 +30,8 @@ public class GameData : MonoBehaviour
     public GamePiece RemovedPiece;
     public bool CheckBlack = false;
     public bool CheckWhite = false;
+    public List<GamePiece> AttackingWhite;
+    public List<GamePiece> AttackingBlack;
 
     // Start is called before the first frame update
     void Start()
@@ -129,6 +131,10 @@ public class GameData : MonoBehaviour
         }
         if (true)
         {
+            // reset attacking piece
+            AttackingBlack.Clear();
+            AttackingWhite.Clear();
+
             // Destroy piece in next location if applicable
             if (NewTile.IsOccupied == true)
             {
@@ -157,6 +163,7 @@ public class GameData : MonoBehaviour
                 if (piece.AttackOverseerCheck(OverseerWhite))
                 {
                     CheckWhite = true;
+                    AttackingWhite.Add(piece);
                 }
             }
             foreach (var piece in WhiteGamePieces)
@@ -164,7 +171,13 @@ public class GameData : MonoBehaviour
                 if (piece.AttackOverseerCheck(OverseerBlack))
                 {
                     CheckBlack = true;
+                    AttackingBlack.Add(piece);
                 }
+            }
+
+            if(CheckBlack == true || CheckWhite == true)
+            {
+                CheckmateAnalyzer();
             }
 
 
@@ -195,6 +208,10 @@ public class GameData : MonoBehaviour
                 piece.UpdateSceneStatus(this);
             }
         }
+        // return if putting self in check
+        // add code for check
+
+
         // append new tile to move record string
         moveRecordStringAppend = moveRecordStringAppend + SelectedPiece.PieceType.ToString() + SelectedPiece.NextLocation.TileSector.ToString() + SelectedPiece.NextLocation.TileIndex.ToString();
         // The below code should only execute if all checks have passed
@@ -283,6 +300,6 @@ public class GameData : MonoBehaviour
 
     public void CheckmateAnalyzer()
     {
-
+        // Check if the overseer can move to a safe location, if the attacking piece can be destroyed or blocked by another piece
     }
 }
