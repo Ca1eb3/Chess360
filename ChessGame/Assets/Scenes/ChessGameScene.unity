@@ -2403,7 +2403,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0.8565458}
-  m_AnchoredPosition: {x: -91.50101, y: 28.690813}
+  m_AnchoredPosition: {x: -91.50101, y: 28.690796}
   m_SizeDelta: {x: 183, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!23 &258839400
@@ -4133,6 +4133,10 @@ PrefabInstance:
       value: SoldierBlack B6
       objectReference: {fileID: 0}
     - target: {fileID: 4896270523488909369, guid: 33df19dfd1fe99647bd019dbf53b8d39, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4896270523488909369, guid: 33df19dfd1fe99647bd019dbf53b8d39, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 268695266}
@@ -5730,6 +5734,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1978806582}
     - target: {fileID: 8905498433488669157, guid: af88b3d751c92b54087f9414b17175a5, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8905498433488669157, guid: af88b3d751c92b54087f9414b17175a5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 268695266}
@@ -6324,7 +6332,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1294698533457112184, guid: bc32c459125424049b16d47e1258142c, type: 3}
       propertyPath: m_Interactable
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1294698533457112184, guid: bc32c459125424049b16d47e1258142c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
@@ -6435,6 +6443,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1334484785}
     m_Modifications:
+    - target: {fileID: -6399245641476178609, guid: 75f690bd9677c1e4eaa9cf58b28991bf, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -6399245641476178609, guid: 75f690bd9677c1e4eaa9cf58b28991bf, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
@@ -7995,7 +8007,7 @@ PrefabInstance:
       objectReference: {fileID: 2004729894}
     - target: {fileID: 1068146017105710582, guid: 8bc04fa0c81183541a9df555d41b0651, type: 3}
       propertyPath: m_Interactable
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1068146017105710582, guid: 8bc04fa0c81183541a9df555d41b0651, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
@@ -8844,6 +8856,10 @@ PrefabInstance:
       propertyPath: CurrentLocation
       value: 
       objectReference: {fileID: 965982852}
+    - target: {fileID: 8905498433488669157, guid: af88b3d751c92b54087f9414b17175a5, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8905498433488669157, guid: af88b3d751c92b54087f9414b17175a5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
@@ -15078,6 +15094,10 @@ PrefabInstance:
       value: SoldierBlack K6
       objectReference: {fileID: 0}
     - target: {fileID: 4896270523488909369, guid: 33df19dfd1fe99647bd019dbf53b8d39, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4896270523488909369, guid: 33df19dfd1fe99647bd019dbf53b8d39, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 268695266}
@@ -17121,6 +17141,10 @@ PrefabInstance:
       value: SoldierBlack A5
       objectReference: {fileID: 0}
     - target: {fileID: 4896270523488909369, guid: 33df19dfd1fe99647bd019dbf53b8d39, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4896270523488909369, guid: 33df19dfd1fe99647bd019dbf53b8d39, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 268695266}
@@ -17579,6 +17603,10 @@ PrefabInstance:
     - target: {fileID: 431305043201327227, guid: 33df19dfd1fe99647bd019dbf53b8d39, type: 3}
       propertyPath: m_Name
       value: SoldierBlack L5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4896270523488909369, guid: 33df19dfd1fe99647bd019dbf53b8d39, type: 3}
+      propertyPath: m_Interactable
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4896270523488909369, guid: 33df19dfd1fe99647bd019dbf53b8d39, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
@@ -18888,6 +18916,10 @@ PrefabInstance:
       propertyPath: CurrentLocation
       value: 
       objectReference: {fileID: 2079209404}
+    - target: {fileID: 8905498433488669157, guid: af88b3d751c92b54087f9414b17175a5, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8905498433488669157, guid: af88b3d751c92b54087f9414b17175a5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
@@ -21994,6 +22026,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1334484785}
     m_Modifications:
     - target: {fileID: -6399245641476178609, guid: 75f690bd9677c1e4eaa9cf58b28991bf, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6399245641476178609, guid: 75f690bd9677c1e4eaa9cf58b28991bf, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 268695266}
@@ -23023,7 +23059,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 129000547}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.9999704
+  m_Size: 0.9999085
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -23316,6 +23352,10 @@ PrefabInstance:
     - target: {fileID: 431305043201327227, guid: 33df19dfd1fe99647bd019dbf53b8d39, type: 3}
       propertyPath: m_Name
       value: SoldierBlack B7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4896270523488909369, guid: 33df19dfd1fe99647bd019dbf53b8d39, type: 3}
+      propertyPath: m_Interactable
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4896270523488909369, guid: 33df19dfd1fe99647bd019dbf53b8d39, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
@@ -25391,7 +25431,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1294698533457112184, guid: bc32c459125424049b16d47e1258142c, type: 3}
       propertyPath: m_Interactable
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1294698533457112184, guid: bc32c459125424049b16d47e1258142c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
@@ -25954,6 +25994,10 @@ PrefabInstance:
       propertyPath: CurrentLocation
       value: 
       objectReference: {fileID: 440825266}
+    - target: {fileID: 8905498433488669157, guid: af88b3d751c92b54087f9414b17175a5, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8905498433488669157, guid: af88b3d751c92b54087f9414b17175a5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
@@ -26601,7 +26645,7 @@ PrefabInstance:
       objectReference: {fileID: 2056305480}
     - target: {fileID: 1068146017105710582, guid: 8bc04fa0c81183541a9df555d41b0651, type: 3}
       propertyPath: m_Interactable
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1068146017105710582, guid: 8bc04fa0c81183541a9df555d41b0651, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
@@ -26712,6 +26756,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1334484785}
     m_Modifications:
+    - target: {fileID: -9193220260901358601, guid: 5e4e1787bb9849044a993b845480db0d, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -9193220260901358601, guid: 5e4e1787bb9849044a993b845480db0d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
@@ -27077,6 +27125,10 @@ PrefabInstance:
     - target: {fileID: 431305043201327227, guid: 33df19dfd1fe99647bd019dbf53b8d39, type: 3}
       propertyPath: m_Name
       value: SoldierBlack K7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4896270523488909369, guid: 33df19dfd1fe99647bd019dbf53b8d39, type: 3}
+      propertyPath: m_Interactable
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4896270523488909369, guid: 33df19dfd1fe99647bd019dbf53b8d39, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
@@ -27656,7 +27708,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1596262256085390851, guid: f66dc1c0e5048384d94b29be27ca6855, type: 3}
       propertyPath: m_Interactable
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1596262256085390851, guid: f66dc1c0e5048384d94b29be27ca6855, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
