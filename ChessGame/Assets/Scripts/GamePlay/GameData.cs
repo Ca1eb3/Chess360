@@ -157,9 +157,14 @@ public class GameData : MonoBehaviour
                 piece.UpdateButtonStatus(this);
                 piece.UpdateSceneStatus(this);
             }
+            UpdateGamePieces();
             // The game is in the probable next game state
             foreach (var piece in BlackGamePieces)
             {
+                if (RemovedPiece != null && piece.Equals(RemovedPiece))
+                {
+                    continue;
+                }
                 if (piece.AttackOverseerCheck(OverseerWhite))
                 {
                     CheckWhite = true;
@@ -168,6 +173,10 @@ public class GameData : MonoBehaviour
             }
             foreach (var piece in WhiteGamePieces)
             {
+                if (RemovedPiece != null && piece.Equals(RemovedPiece))
+                {
+                    continue;
+                }
                 if (piece.AttackOverseerCheck(OverseerBlack))
                 {
                     CheckBlack = true;
@@ -207,6 +216,7 @@ public class GameData : MonoBehaviour
                 piece.UpdateButtonStatus(this);
                 piece.UpdateSceneStatus(this);
             }
+            UpdateGamePieces();
         }
         // return if putting self in check
         // add code for check
