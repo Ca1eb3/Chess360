@@ -27,6 +27,19 @@ namespace ChessGame
             }
         }
 
+        public static Sector SubtractSector(Sector sector)
+        {
+            if (Convert.ToInt32(sector - 1) == -1)
+            {
+                sector = Sector.L;
+                return sector;
+            }
+            else
+            {
+                return sector - 1;
+            }
+        }
+
         public static int Add(Sector sector)
         {
             if (Convert.ToInt32(sector + 1) == 12)
@@ -37,6 +50,19 @@ namespace ChessGame
             else
             {
                 return Convert.ToInt32(sector + 1);
+            }
+        }
+
+        public static Sector AddSector(Sector sector)
+        {
+            if (Convert.ToInt32(sector + 1) == 12)
+            {
+                sector = Sector.A;
+                return sector;
+            }
+            else
+            {
+                return sector + 1;
             }
         }
     }

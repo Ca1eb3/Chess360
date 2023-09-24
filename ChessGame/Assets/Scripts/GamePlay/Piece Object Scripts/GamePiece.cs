@@ -12,6 +12,7 @@ public abstract class GamePiece : MonoBehaviour
     public TileBehaviour CurrentLocation;
     public TileBehaviour NextLocation;
     public TileBehaviour PreviousLocation;
+    public ValidMoveGraphStartNode ValidMoveGraph;
     public bool AttacksOverseer = false;
 
 
