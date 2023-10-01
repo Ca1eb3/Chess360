@@ -26,7 +26,8 @@ public abstract class GamePiece : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        CurrentLocation = GameObject.Find(TileSector.ToString() + TileIndex.ToString()).GetComponent<TileBehaviour>();
+        UpdateValidMoveGraph();
     }
 
     // Update is called once per frame
@@ -39,6 +40,7 @@ public abstract class GamePiece : MonoBehaviour
     {
         data.CurrentTile = CurrentLocation;
         data.SelectedPiece = this;
+        UpdateValidMoveGraph();
     }
 
     public virtual void UpdateSceneStatus(GameData data)
@@ -78,4 +80,10 @@ public abstract class GamePiece : MonoBehaviour
     }
 
     public abstract bool MoveParameterCheck(TileBehaviour nextLocation, TileBehaviour currentLocation);
+
+    public virtual void UpdateValidMoveGraph()
+    {
+        ValidMoveGraph.PieceLocation = CurrentLocation;
+
+    }
 }

@@ -257,6 +257,7 @@ public class GameData : MonoBehaviour
             piece.CurrentLocation.UpdateStatus(this);
             piece.UpdateButtonStatus(this);
             piece.UpdateSceneStatus(this);
+            piece.UpdateValidMoveGraph();
         }
         // Check win condition
         if (OverseerBlack == null)
