@@ -8,18 +8,6 @@ using UnityEngine;
 
 public class Pilot : GamePiece
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public override bool MoveParameterCheck(TileBehaviour nextLocation, TileBehaviour currentLocation)
     {
         if (MovePatterns.DiagonalMovePilot(nextLocation, currentLocation))
