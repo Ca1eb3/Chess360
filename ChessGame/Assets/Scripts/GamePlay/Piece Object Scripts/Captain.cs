@@ -11,6 +11,10 @@ public class Captain : GamePiece
 {
     public override bool MoveParameterCheck(TileBehaviour nextLocation, TileBehaviour currentLocation)
     {
+        if (!OccupiedSpaceCheck(nextLocation))
+        {
+            return false;
+        }
         if (MovePatterns.SingleRadial(nextLocation, currentLocation))
         {
             return true;

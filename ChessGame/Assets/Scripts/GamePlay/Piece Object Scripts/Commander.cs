@@ -10,6 +10,10 @@ public class Commander : GamePiece
 {
     public override bool MoveParameterCheck(TileBehaviour nextLocation, TileBehaviour currentLocation)
     {
+        if (!OccupiedSpaceCheck(nextLocation))
+        {
+            return false;
+        }
         if (MovePatterns.Forward(nextLocation, currentLocation) || MovePatterns.Radial(nextLocation, currentLocation) || MovePatterns.Diagonal(nextLocation, currentLocation))
         {
             return true;

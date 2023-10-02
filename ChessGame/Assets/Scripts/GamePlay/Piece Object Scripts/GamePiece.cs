@@ -12,7 +12,7 @@ public abstract class GamePiece : MonoBehaviour
     public TileBehaviour CurrentLocation;
     public TileBehaviour NextLocation;
     public TileBehaviour PreviousLocation;
-    public ValidMoveGraphStartNode ValidMoveGraph;
+    public ValidMoveGraphStartNode ValidMoveGraph = new ValidMoveGraphStartNode();
     public bool AttacksOverseer = false;
 
 
@@ -27,6 +27,7 @@ public abstract class GamePiece : MonoBehaviour
     void Start()
     {
         CurrentLocation = GameObject.Find(TileSector.ToString() + TileIndex.ToString()).GetComponent<TileBehaviour>();
+        ValidMoveGraph.Piece = this;
         UpdateValidMoveGraph();
     }
 
@@ -81,9 +82,19 @@ public abstract class GamePiece : MonoBehaviour
 
     public abstract bool MoveParameterCheck(TileBehaviour nextLocation, TileBehaviour currentLocation);
 
+    public bool OccupiedSpaceCheck(TileBehaviour nextLocation)
+    {
+        if (nextLocation.IsOccupied == true && (nextLocation.OccupyingObject.Color == Color || nextLocation.OccupyingObject.PieceType == PieceString.B))
+        {
+            return false;
+        }
+        return true;
+    }
+
     public virtual void UpdateValidMoveGraph()
     {
         ValidMoveGraph.PieceLocation = CurrentLocation;
-
+        ValidMoveGraph.ClearValidMoves();
+        ValidMoveGraph.CreateNodes();
     }
 }

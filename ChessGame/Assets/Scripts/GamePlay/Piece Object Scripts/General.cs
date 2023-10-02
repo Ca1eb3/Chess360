@@ -11,6 +11,10 @@ public class General : GamePiece
 {
     public override bool MoveParameterCheck(TileBehaviour nextLocation, TileBehaviour currentLocation)
     {
+        if (!OccupiedSpaceCheck(nextLocation))
+        {
+            return false;
+        }
         if (MovePatterns.SingleForward(nextLocation, currentLocation))
         {
             return true;

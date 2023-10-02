@@ -17,6 +17,10 @@ namespace ChessGame
     {
         public static TileBehaviour Forward(TileBehaviour Tile)
         {
+            if (Tile.TileIndex + 1 > 8)
+            {
+                return null;
+            }
             int tileIndex = Tile.TileIndex + 1;
             Sector tileSector = Tile.TileSector;
             TileBehaviour NextTile = GameObject.Find(tileSector.ToString() + tileIndex.ToString()).GetComponent("TileBehaviour") as TileBehaviour;
@@ -25,6 +29,10 @@ namespace ChessGame
 
         public static TileBehaviour Backward(TileBehaviour Tile)
         {
+            if (Tile.TileIndex - 1 < 1)
+            {
+                return null;
+            }
             int tileIndex = Tile.TileIndex - 1;
             Sector tileSector = Tile.TileSector;
             TileBehaviour NextTile = GameObject.Find(tileSector.ToString() + tileIndex.ToString()).GetComponent("TileBehaviour") as TileBehaviour;
@@ -49,6 +57,10 @@ namespace ChessGame
 
         public static TileBehaviour DClockwiseForward(TileBehaviour Tile)
         {
+            if (Tile.TileIndex + 1 > 8)
+            {
+                return null;
+            }
             int tileIndex = Tile.TileIndex + 1;
             Sector tileSector = SectorOperations.AddSector(Tile.TileSector);
             TileBehaviour NextTile = GameObject.Find(tileSector.ToString() + tileIndex.ToString()).GetComponent("TileBehaviour") as TileBehaviour;
@@ -57,6 +69,10 @@ namespace ChessGame
 
         public static TileBehaviour DClockwiseBackward(TileBehaviour Tile)
         {
+            if (Tile.TileIndex - 1 < 1)
+            {
+                return null;
+            }
             int tileIndex = Tile.TileIndex - 1;
             Sector tileSector = SectorOperations.AddSector(Tile.TileSector);
             TileBehaviour NextTile = GameObject.Find(tileSector.ToString() + tileIndex.ToString()).GetComponent("TileBehaviour") as TileBehaviour;
@@ -65,6 +81,10 @@ namespace ChessGame
 
         public static TileBehaviour DCounterClockwiseForward(TileBehaviour Tile)
         {
+            if (Tile.TileIndex + 1 > 8)
+            {
+                return null;
+            }
             int tileIndex = Tile.TileIndex + 1;
             Sector tileSector = SectorOperations.SubtractSector(Tile.TileSector);
             TileBehaviour NextTile = GameObject.Find(tileSector.ToString() + tileIndex.ToString()).GetComponent("TileBehaviour") as TileBehaviour;
@@ -73,6 +93,10 @@ namespace ChessGame
 
         public static TileBehaviour DCounterClockwiseBackward(TileBehaviour Tile)
         {
+            if (Tile.TileIndex - 1 < 1)
+            {
+                return null;
+            }
             int tileIndex = Tile.TileIndex - 1;
             Sector tileSector = SectorOperations.SubtractSector(Tile.TileSector);
             TileBehaviour NextTile = GameObject.Find(tileSector.ToString() + tileIndex.ToString()).GetComponent("TileBehaviour") as TileBehaviour;
