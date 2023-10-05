@@ -17,10 +17,6 @@ public class Soldier : GamePiece
         {
             return true;
         }
-        //else if (MovePatterns.SoldierBarricadeJump(nextLocation, currentLocation))
-        //{
-        //    return true;
-        //}
         else
         {
             return false;
