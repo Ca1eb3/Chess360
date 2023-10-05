@@ -22,7 +22,10 @@ public class ValidMoveGraphBasicNode
 
     public void UpdateListValidMoves()
     {
-        Piece.ValidMoveGraph.ValidMoves.Add(PieceLocation);
+        if (MoveParameterCheck)
+        {
+            Piece.ValidMoveGraph.ValidMoves.Add(PieceLocation);
+        }
     }
 
     public void MoveParameterChecker()
@@ -50,6 +53,58 @@ public class ValidMoveGraphBasicNode
 
     public void TryNextMove()
     {
-        // Add code to recursively check for the next valid move until parameter checks fails
+        ValidMoveGraphBasicNode node = new ValidMoveGraphBasicNode();
+
+        switch (MoveDirection)
+        {
+            case MoveDirection.Forward:
+                node.PieceLocation = MoveDirectionOperations.Forward(PieceLocation);
+                node.MoveDirection = MoveDirection.Forward;
+                break;
+            case MoveDirection.Backward:
+                node.PieceLocation = MoveDirectionOperations.Backward(PieceLocation);
+                node.MoveDirection = MoveDirection.Backward;
+                break;
+            case MoveDirection.Clockwise:
+                node.PieceLocation = MoveDirectionOperations.Clockwise(PieceLocation);
+                node.MoveDirection = MoveDirection.Clockwise;
+                break;
+            case MoveDirection.CounterClockwise:
+                node.PieceLocation = MoveDirectionOperations.CounterClockwise(PieceLocation);
+                node.MoveDirection = MoveDirection.CounterClockwise;
+                break;
+            case MoveDirection.DCounterClockwiseForward:
+                node.PieceLocation = MoveDirectionOperations.DCounterClockwiseForward(PieceLocation);
+                node.MoveDirection = MoveDirection.DCounterClockwiseForward;
+                break;
+            case MoveDirection.DClockwiseForward:
+                node.PieceLocation = MoveDirectionOperations.DClockwiseForward(PieceLocation);
+                node.MoveDirection = MoveDirection.DClockwiseForward;
+                break;
+            case MoveDirection.DClockwiseBackward:
+                node.PieceLocation = MoveDirectionOperations.DClockwiseBackward(PieceLocation);
+                node.MoveDirection = MoveDirection.DClockwiseBackward;
+                break;
+            case MoveDirection.DCounterClockwiseBackward:
+                node.PieceLocation = MoveDirectionOperations.DCounterClockwiseBackward(PieceLocation);
+                node.MoveDirection = MoveDirection.DCounterClockwiseBackward;
+                break;
+        }
+
+        if (node.PieceLocation == null)
+        {
+            return;
+        }
+        node.Piece = Piece;
+        node.Depth = Depth + 1;
+        node.MoveParameterChecker();
+        node.ContinueChecker();
+        node.UpdateListValidMoves();
+        if (node.MoveParameterCheck == false && node.ContinueChecks == false)
+        {
+            return;
+        }
+        Node = node;
+        Node.TryNextMove();
     }
 }

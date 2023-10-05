@@ -21,7 +21,6 @@ public class ValidMoveGraphStartNode
         for (int i = 0 ; i < 8; i++) 
         {
             ValidMoveGraphBasicNode node = new ValidMoveGraphBasicNode();
-            //node.StartingNode = this;
 
             switch (i)
             {
@@ -67,6 +66,7 @@ public class ValidMoveGraphStartNode
             node.Depth = Depth + 1;
             node.MoveParameterChecker();
             node.ContinueChecker();
+            node.UpdateListValidMoves();
             if (node.MoveParameterCheck == false && node.ContinueChecks == false)
             {
                 continue;
