@@ -70,11 +70,6 @@ public abstract class GamePiece : MonoBehaviour
         }
     }
 
-    public bool MoveParameterCheckCurrentState()
-    {
-        return MoveParameterCheck(NextLocation, CurrentLocation);
-    }
-
     public bool AttackOverseerCheck(Overseer overseer)
     {
         return MoveParameterCheck(overseer.CurrentLocation, CurrentLocation);

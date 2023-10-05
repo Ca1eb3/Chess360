@@ -125,7 +125,7 @@ public class GameData : MonoBehaviour
         {
             return;
         }
-        if (SelectedPiece.MoveParameterCheckCurrentState() == false)
+        if (!SelectedPiece.ValidMoveGraph.ValidMoves.Contains(SelectedPiece.NextLocation))
         {
             return;
         }
