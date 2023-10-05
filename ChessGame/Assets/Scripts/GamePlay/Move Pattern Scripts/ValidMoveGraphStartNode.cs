@@ -64,10 +64,10 @@ public class ValidMoveGraphStartNode
             }
             node.Piece = Piece;
             node.Depth = Depth + 1;
-            node.MoveParameterChecker();
+            node.MoveParameterChecker(PieceLocation);
             node.ContinueChecker();
             node.UpdateListValidMoves();
-            if (node.MoveParameterCheck == false && node.ContinueChecks == false)
+            if (node.ContinueChecks == false)
             {
                 continue;
             }

@@ -7,20 +7,20 @@ using UnityEngine;
 
 public class Soldier : GamePiece
 {
-    public override bool MoveParameterCheck(TileBehaviour nextLocation, TileBehaviour currentLocation)
+    public override bool MoveParameterCheck(TileBehaviour nextLocation, TileBehaviour currentLocation, int depth)
     {
         if (!OccupiedSpaceCheck(nextLocation))
         {
             return false;
         }
-        if (MovePatterns.SingleRadial(nextLocation, currentLocation) || MovePatterns.SingleForward(nextLocation, currentLocation) || MovePatterns.SingleDiagonal(nextLocation, currentLocation))
+        if (depth <= 2 && (MovePatterns.Radial(nextLocation, currentLocation) || MovePatterns.Forward(nextLocation, currentLocation) || MovePatterns.Diagonal(nextLocation, currentLocation)))
         {
             return true;
         }
-        else if (MovePatterns.SoldierBarricadeJump(nextLocation, currentLocation))
-        {
-            return true;
-        }
+        //else if (MovePatterns.SoldierBarricadeJump(nextLocation, currentLocation))
+        //{
+        //    return true;
+        //}
         else
         {
             return false;

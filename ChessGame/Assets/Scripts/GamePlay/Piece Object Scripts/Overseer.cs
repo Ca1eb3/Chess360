@@ -7,15 +7,22 @@ using UnityEngine;
 
 public class Overseer : GamePiece
 {
-    public override bool MoveParameterCheck(TileBehaviour nextLocation, TileBehaviour currentLocation)
+    public override bool MoveParameterCheck(TileBehaviour nextLocation, TileBehaviour currentLocation, int depth)
     {
         if (!OccupiedSpaceCheck(nextLocation))
         {
             return false;
         }
-        if (MovePatterns.SingleRadial(nextLocation, currentLocation) || MovePatterns.SingleForward(nextLocation, currentLocation) || MovePatterns.SingleDiagonal(nextLocation, currentLocation))
+        if (depth <= 1)
         {
-            return true;
+            if (MovePatterns.Radial(nextLocation, currentLocation) || MovePatterns.Forward(nextLocation, currentLocation) || MovePatterns.Diagonal(nextLocation, currentLocation))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         else
         {

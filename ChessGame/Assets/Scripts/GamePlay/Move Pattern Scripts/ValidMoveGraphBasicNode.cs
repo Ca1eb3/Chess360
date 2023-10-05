@@ -28,15 +28,20 @@ public class ValidMoveGraphBasicNode
         }
     }
 
-    public void MoveParameterChecker()
+    public void MoveParameterChecker(TileBehaviour PrevLocation)
     {
-        MoveParameterCheck = Piece.MoveParameterCheck(PieceLocation, Piece.CurrentLocation);
+        MoveParameterCheck = Piece.MoveParameterCheck(PieceLocation, PrevLocation, Depth);
     }
 
     public void ContinueChecker()
     {
         if (MoveParameterCheck == true)
         {
+            if (Piece.PieceType == PieceString.S)
+            {
+                ContinueChecks = false;
+                return;
+            }
             ContinueChecks = true;
             return;
         }
@@ -97,10 +102,10 @@ public class ValidMoveGraphBasicNode
         }
         node.Piece = Piece;
         node.Depth = Depth + 1;
-        node.MoveParameterChecker();
+        node.MoveParameterChecker(PieceLocation);
         node.ContinueChecker();
         node.UpdateListValidMoves();
-        if (node.MoveParameterCheck == false && node.ContinueChecks == false)
+        if (node.ContinueChecks == false)
         {
             return;
         }

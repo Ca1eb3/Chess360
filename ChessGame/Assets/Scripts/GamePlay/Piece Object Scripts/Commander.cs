@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class Commander : GamePiece
 {
-    public override bool MoveParameterCheck(TileBehaviour nextLocation, TileBehaviour currentLocation)
+    public override bool MoveParameterCheck(TileBehaviour nextLocation, TileBehaviour currentLocation, int depth)
     {
         if (!OccupiedSpaceCheck(nextLocation))
         {

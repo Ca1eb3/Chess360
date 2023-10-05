@@ -72,10 +72,11 @@ public abstract class GamePiece : MonoBehaviour
 
     public bool AttackOverseerCheck(Overseer overseer)
     {
-        return MoveParameterCheck(overseer.CurrentLocation, CurrentLocation);
+        return MoveParameterCheck(overseer.CurrentLocation, CurrentLocation, 15);
     }
 
-    public abstract bool MoveParameterCheck(TileBehaviour nextLocation, TileBehaviour currentLocation);
+    public abstract bool MoveParameterCheck(TileBehaviour nextLocation, TileBehaviour currentLocation, int depth);
+
 
     public bool OccupiedSpaceCheck(TileBehaviour nextLocation)
     {

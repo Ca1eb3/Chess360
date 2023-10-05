@@ -9,11 +9,11 @@ using ChessGame;
 
 public class Barricade : GamePiece
 {
-    public override bool MoveParameterCheck(TileBehaviour nextLocation, TileBehaviour currentLocation)
+    public override bool MoveParameterCheck(TileBehaviour nextLocation, TileBehaviour currentLocation, int depth)
     {
-        if (nextLocation.IsOccupied == false)
+        if (nextLocation.IsOccupied == false && depth <= 1)
         {
-            if (MovePatterns.SingleRadial(nextLocation, currentLocation) || MovePatterns.SingleForward(nextLocation, currentLocation))
+            if (MovePatterns.Radial(nextLocation, currentLocation) || MovePatterns.Forward(nextLocation, currentLocation))
             {
                 return true;
             }

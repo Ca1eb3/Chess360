@@ -9,13 +9,13 @@ using ChessGame;
 
 public class Captain : GamePiece
 {
-    public override bool MoveParameterCheck(TileBehaviour nextLocation, TileBehaviour currentLocation)
+    public override bool MoveParameterCheck(TileBehaviour nextLocation, TileBehaviour currentLocation, int depth)
     {
         if (!OccupiedSpaceCheck(nextLocation))
         {
             return false;
         }
-        if (MovePatterns.SingleRadial(nextLocation, currentLocation))
+        if (depth <= 1 && MovePatterns.Radial(nextLocation, currentLocation))
         {
             return true;
         }

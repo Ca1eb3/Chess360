@@ -8,13 +8,13 @@ using UnityEngine;
 
 public class Pilot : GamePiece
 {
-    public override bool MoveParameterCheck(TileBehaviour nextLocation, TileBehaviour currentLocation)
+    public override bool MoveParameterCheck(TileBehaviour nextLocation, TileBehaviour currentLocation, int depth)
     {
         if (!OccupiedSpaceCheck(nextLocation))
         {
             return false;
         }
-        if (MovePatterns.DiagonalMovePilot(nextLocation, currentLocation))
+        if (MovePatterns.Diagonal(nextLocation, currentLocation))
         {
             return true;
         }
