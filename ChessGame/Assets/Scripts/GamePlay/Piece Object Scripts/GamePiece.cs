@@ -72,7 +72,7 @@ public abstract class GamePiece : MonoBehaviour
 
     public bool AttackOverseerCheck(Overseer overseer)
     {
-        return MoveParameterCheck(overseer.CurrentLocation, CurrentLocation, 15);
+        return this.ValidMoveGraph.ValidMoves.Contains(overseer.CurrentLocation);
     }
 
     public abstract bool MoveParameterCheck(TileBehaviour nextLocation, TileBehaviour currentLocation, int depth);
@@ -80,7 +80,16 @@ public abstract class GamePiece : MonoBehaviour
 
     public bool OccupiedSpaceCheck(TileBehaviour nextLocation)
     {
-        if (nextLocation.IsOccupied == true && (nextLocation.OccupyingObject.Color == Color || nextLocation.OccupyingObject.PieceType == PieceString.B))
+        if (nextLocation.IsOccupied == true)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public bool CanAttackCheck(TileBehaviour nextLocation)
+    {
+        if (nextLocation.OccupyingObject.Color == Color || nextLocation.OccupyingObject.PieceType == PieceString.B)
         {
             return false;
         }

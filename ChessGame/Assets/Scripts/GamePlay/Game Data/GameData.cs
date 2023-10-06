@@ -151,13 +151,14 @@ public class GameData : MonoBehaviour
             CurrentTile.OccupyingObject = null;
             CurrentTile.UpdateStatus(this);
             NewTile.UpdateStatus(this);
+            UpdateGamePieces();
             foreach (var piece in GamePieces)
             {
                 piece.CurrentLocation.UpdateStatus(this);
                 piece.UpdateButtonStatus(this);
                 piece.UpdateSceneStatus(this);
+                piece.UpdateValidMoveGraph();
             }
-            UpdateGamePieces();
             // The game is in the probable next game state
             foreach (var piece in BlackGamePieces)
             {
@@ -210,13 +211,14 @@ public class GameData : MonoBehaviour
             }
             CurrentTile.UpdateStatus(this);
             NewTile.UpdateStatus(this);
+            UpdateGamePieces();
             foreach (var piece in GamePieces)
             {
                 piece.CurrentLocation.UpdateStatus(this);
                 piece.UpdateButtonStatus(this);
                 piece.UpdateSceneStatus(this);
+                piece.UpdateValidMoveGraph();
             }
-            UpdateGamePieces();
         }
         // return if putting self in check
         // add code for check

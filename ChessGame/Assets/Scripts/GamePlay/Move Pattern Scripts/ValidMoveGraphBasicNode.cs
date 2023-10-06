@@ -37,6 +37,14 @@ public class ValidMoveGraphBasicNode
     {
         if (MoveParameterCheck == true)
         {
+            if (Piece.OccupiedSpaceCheck(PieceLocation))
+            {
+                if (Piece.CanAttackCheck(PieceLocation))
+                {
+                    ContinueChecks = false;
+                    return;
+                }
+            }
             if (Piece.PieceType == PieceString.S)
             {
                 ContinueChecks = false;
