@@ -15,6 +15,7 @@ namespace ChessGame
 
     public static class MoveDirectionOperations
     {
+        // might be a good idea to create a new method that implements one of these methods to add a layer of abstraction to the move operations
         public static TileBehaviour Forward(TileBehaviour Tile)
         {
             if (Tile.TileIndex + 1 > 8)
