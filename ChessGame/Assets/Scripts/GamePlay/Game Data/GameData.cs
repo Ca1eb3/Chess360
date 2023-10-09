@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using System;
 using UnityEngine.UIElements;
+using System.Linq;
 
 public class GameData : MonoBehaviour
 {
@@ -30,8 +31,11 @@ public class GameData : MonoBehaviour
     public GamePiece RemovedPiece;
     public bool CheckBlack = false;
     public bool CheckWhite = false;
+    public bool ValidMove = false;
     public List<GamePiece> AttackingWhite;
     public List<GamePiece> AttackingBlack;
+    public PieceColor Turn = PieceColor.White;
+    public bool Checkmate = false;
 
     // Start is called before the first frame update
     void Start()
@@ -94,9 +98,20 @@ public class GameData : MonoBehaviour
 
     public void MakeMove()
     {
+        ValidMove = false;
+        CheckWhite = false;
+        CheckBlack = false;
         // string to append move to move record
         string moveRecordStringAppend = "";
         if (MoveCounter % 2 == 0)
+        {
+            Turn = PieceColor.White;
+        }
+        else
+        {
+            Turn = PieceColor.Black;
+        }
+        if (Turn == PieceColor.White)
         {
             if (MoveCounter == 0)
             {
@@ -121,7 +136,7 @@ public class GameData : MonoBehaviour
         // Set pieces next location
         SelectedPiece.NextLocation = NewTile;
         // Do move checks
-        if (MoveCounter % 2 == 0 && SelectedPiece.Color == PieceColor.Black || MoveCounter % 2 == 1 && SelectedPiece.Color == PieceColor.White)
+        if (Turn == PieceColor.White && SelectedPiece.Color == PieceColor.Black || Turn == PieceColor.Black && SelectedPiece.Color == PieceColor.White)
         {
             return;
         }
@@ -184,8 +199,16 @@ public class GameData : MonoBehaviour
                     AttackingBlack.Add(piece);
                 }
             }
+            if (CheckBlack && Turn == PieceColor.Black || CheckWhite && Turn == PieceColor.White)
+            {
+                ValidMove = false;
+            }
+            else
+            {
+                ValidMove = true;
+            }
 
-            if(CheckBlack == true || CheckWhite == true)
+            if ((CheckBlack == true || CheckWhite == true) && ValidMove == true)
             {
                 CheckmateAnalyzer();
             }
@@ -218,6 +241,12 @@ public class GameData : MonoBehaviour
                 piece.UpdateButtonStatus(this);
                 piece.UpdateSceneStatus(this);
                 piece.UpdateValidMoveGraph();
+            }
+
+            // return if putting self in check
+            if (ValidMove == false)
+            {
+                return;
             }
         }
         // return if putting self in check
@@ -314,5 +343,141 @@ public class GameData : MonoBehaviour
     public void CheckmateAnalyzer()
     {
         // Check if the overseer can move to a safe location, if the attacking piece can be destroyed or blocked by another piece
+        // if turn is white analyze checkmate for black
+
+
+
+        //if (Turn == PieceColor.White)
+        //{
+        //    List<TileBehaviour> whiteAttackMoves = new List<TileBehaviour>();
+        //    foreach (var piece in WhiteGamePieces) 
+        //    { 
+        //        if (piece.PieceType != PieceString.B)
+        //        {
+        //            whiteAttackMoves = whiteAttackMoves.Concat(piece.ValidMoveGraph.ValidMoves).ToList();
+        //        }
+        //    }
+
+        //    foreach (var move in OverseerBlack.ValidMoveGraph.ValidMoves)
+        //    {
+        //        if (whiteAttackMoves.Contains(move))
+        //        {
+        //            continue;
+        //        }
+        //        else
+        //        {
+        //            if (OverseerBlack.OccupiedSpaceCheck(move))
+        //            {
+        //                // do stuff to check edge case
+        //                continue;
+        //            }
+        //            else
+        //            {
+        //                return;
+        //            }
+        //        }
+        //    }
+
+        //}
+
+
+
+        // if turn is black analyze checkmate for white
+        if (Turn == PieceColor.Black)
+        {
+            List<TileBehaviour> blackAttackMoves = new List<TileBehaviour>();
+            foreach (var piece in BlackGamePieces)
+            {
+                if (piece.PieceType != PieceString.B)
+                {
+                    blackAttackMoves = blackAttackMoves.Concat(piece.ValidMoveGraph.ValidMoves).ToList();
+                }
+            }
+
+            // Steps 1 and 2 check if overseer can move
+            foreach (var move in OverseerWhite.ValidMoveGraph.ValidMoves)
+            {
+                if (blackAttackMoves.Contains(move))
+                {
+                    continue;
+                }
+                else
+                {
+                    if (OverseerWhite.OccupiedSpaceCheck(move))
+                    {
+                        // do stuff to check edge case when overseer can capture a piece and move to an occupied space that would then become under fire by another piece
+                        continue;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+            }
+
+            // Step 3 and 4 check if attacking piece can be destroyed and check if attacking piece can be blocked
+            if (AttackingWhite.Count == 1)
+            {
+                List<TileBehaviour> whiteAttackMoves = new List<TileBehaviour>();
+                foreach (var piece in WhiteGamePieces)
+                {
+                    if (piece.PieceType != PieceString.B)
+                    {
+                        whiteAttackMoves = whiteAttackMoves.Concat(piece.ValidMoveGraph.ValidMoves).ToList();
+                    }
+                }
+
+                if (whiteAttackMoves.Contains(AttackingWhite[0].CurrentLocation))
+                {
+                    // do stuff to check edge case when moving a piece to attack the check piece results in another check
+                    return;
+                }
+
+
+                // Step 4 check if attacking piece can be blocked
+                // get the number of ways the attacking piece can attack the overseer
+                int attacks = AttackingWhite[0].ValidMoveGraph.ValidMoves.Count(attack => attack == OverseerWhite.CurrentLocation);
+                if (attacks > 1)
+                {
+                    Checkmate = true;
+                    return;
+                }
+                else
+                {
+                    // do stuff to check block attack
+                    List<TileBehaviour> whiteBarricadeMoves = new List<TileBehaviour>();
+                    if (AttackingWhite[0].PieceType != PieceString.P)
+                    {
+                        foreach (var piece in WhiteGamePieces)
+                        {
+                            if (piece.PieceType == PieceString.B)
+                            {
+                                whiteBarricadeMoves = whiteBarricadeMoves.Concat(piece.ValidMoveGraph.ValidMoves).ToList();
+                            }
+                        }
+                        whiteAttackMoves = whiteBarricadeMoves.Concat(whiteAttackMoves).ToList();
+                    }
+                    // add edge case check for moving a barricade away from soldier to move out of check
+                    // find valid move node to determine direction and depth checks
+                    ValidMoveGraphBasicNode attackNode = AttackingWhite[0].ValidMoveGraph.FindNode(OverseerWhite.CurrentLocation);
+                    MoveDirection attackDirection = attackNode.MoveDirection;
+                    int depth = attackNode.Depth;
+                    int i = 1;
+                    ValidMoveGraphBasicNode checkNode = AttackingWhite[0].ValidMoveGraph.FindNode(attackDirection);
+                    while (i < depth)
+                    {
+                        if (whiteAttackMoves.Contains(checkNode.PieceLocation))
+                        {
+                            return;
+                        }
+                        checkNode = checkNode.Node;
+                        i++;
+                    }
+                    
+                }
+            }
+        }
+        Checkmate = true;
+        return;
     }
 }

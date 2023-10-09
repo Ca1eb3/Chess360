@@ -4,6 +4,7 @@ using ChessGame;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 [Serializable]
@@ -80,5 +81,38 @@ public class ValidMoveGraphStartNode
     {
         Nodes.Clear();
         ValidMoves.Clear();
+    }
+
+    public ValidMoveGraphBasicNode FindNode(TileBehaviour NodeLocation)
+    {
+        for (int i = 0; i < Nodes.Count; i++) 
+        { 
+            if (Nodes[i].PieceLocation == NodeLocation)
+            {
+                return Nodes[i];
+            }
+            ValidMoveGraphBasicNode node = Nodes[i];
+            while (node.Node != null)
+            {
+                node = node.Node;
+                if (node.PieceLocation == NodeLocation)
+                {
+                    return node;
+                }
+            }
+        }
+        return null;
+    }
+
+    public ValidMoveGraphBasicNode FindNode(MoveDirection Direction)
+    {
+        for (int i = 0; i < Nodes.Count; i++)
+        {
+            if (Nodes[i].MoveDirection == Direction)
+            {
+                return Nodes[i];
+            }
+        }
+        return null;
     }
 }
