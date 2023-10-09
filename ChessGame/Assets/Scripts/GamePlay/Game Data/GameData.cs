@@ -418,15 +418,43 @@ public class GameData : MonoBehaviour
                         }
                         blackBarricadeMoves = blackBarricadeMoves.Concat(blackAttackMoves).ToList();
                     }
-                    // add edge case check for moving a barricade away from soldier to move out of check
                     // find valid move node to determine direction and depth checks
                     ValidMoveGraphBasicNode attackNode = AttackingBlack[0].ValidMoveGraph.FindNode(OverseerBlack.CurrentLocation);
                     MoveDirection attackDirection = attackNode.MoveDirection;
                     int depth = attackNode.Depth;
                     int i = 1;
                     ValidMoveGraphBasicNode checkNode = AttackingBlack[0].ValidMoveGraph.FindNode(attackDirection);
+
+                    // edge case check for moving a barricade away from soldier to move out of check
+                    if (AttackingBlack[0].PieceType == PieceString.P && depth == 2)
+                    {
+                        GamePiece barricade = checkNode.PieceLocation.OccupyingObject;
+                        if (barricade.ValidMoveGraph.ValidMoves.Count > 0)
+                        {
+                            foreach (var moveTile in barricade.ValidMoveGraph.ValidMoves)
+                            {
+                                if (Math.Abs(moveTile.TileIndex - OverseerBlack.CurrentLocation.TileIndex) == 2 || (moveTile.TileSector - OverseerBlack.CurrentLocation.TileSector) % 2 == 0)
+                                {
+                                    return;
+                                }
+                                MoveDirection barricadeDirection = MoveDirectionOperations.FindMoveDirection(moveTile, OverseerBlack.CurrentLocation);
+                                barricadeDirection = (MoveDirection)(((int)barricadeDirection + 4) % 8);
+                                TileBehaviour checkTile = MoveDirectionOperations.MoveOperator(moveTile, barricadeDirection);
+                                if (checkTile == null || checkTile.OccupyingObject == null)
+                                {
+                                    return;
+                                }
+                                if (checkTile.OccupyingObject.PieceType != PieceString.S)
+                                {
+                                    return;
+                                }
+                            }
+                        }
+                    }
+
                     while (i < depth)
                     {
+                        // check edge case for moving the piece puts the overseer into check
                         if (blackAttackMoves.Contains(checkNode.PieceLocation))
                         {
                             return;
@@ -518,17 +546,45 @@ public class GameData : MonoBehaviour
                         }
                         whiteAttackMoves = whiteBarricadeMoves.Concat(whiteAttackMoves).ToList();
                     }
-                    // add edge case check for moving a barricade away from soldier to move out of check
                     // find valid move node to determine direction and depth checks
                     ValidMoveGraphBasicNode attackNode = AttackingWhite[0].ValidMoveGraph.FindNode(OverseerWhite.CurrentLocation);
                     MoveDirection attackDirection = attackNode.MoveDirection;
                     int depth = attackNode.Depth;
                     int i = 1;
                     ValidMoveGraphBasicNode checkNode = AttackingWhite[0].ValidMoveGraph.FindNode(attackDirection);
+
+                    // edge case check for moving a barricade away from soldier to move out of check
+                    if (AttackingWhite[0].PieceType == PieceString.P && depth == 2)
+                    {
+                        GamePiece barricade = checkNode.PieceLocation.OccupyingObject;
+                        if (barricade.ValidMoveGraph.ValidMoves.Count > 0)
+                        {
+                            foreach (var moveTile in barricade.ValidMoveGraph.ValidMoves)
+                            {
+                                if (Math.Abs(moveTile.TileIndex - OverseerWhite.CurrentLocation.TileIndex) == 2 || (moveTile.TileSector - OverseerWhite.CurrentLocation.TileSector) % 2 == 0 )
+                                {
+                                    return;
+                                }
+                                MoveDirection barricadeDirection = MoveDirectionOperations.FindMoveDirection(moveTile, OverseerWhite.CurrentLocation);
+                                barricadeDirection = (MoveDirection)(((int)barricadeDirection + 4) % 8);
+                                TileBehaviour checkTile = MoveDirectionOperations.MoveOperator(moveTile, barricadeDirection);
+                                if (checkTile == null || checkTile.OccupyingObject == null) 
+                                {
+                                    return;
+                                }
+                                if (checkTile.OccupyingObject.PieceType != PieceString.S)
+                                {
+                                    return;
+                                }
+                            }
+                        }
+                    }
+
                     while (i < depth)
                     {
                         if (whiteAttackMoves.Contains(checkNode.PieceLocation))
                         {
+                            // check edge case for moving the piece puts the overseer into check
                             return;
                         }
                         checkNode = checkNode.Node;

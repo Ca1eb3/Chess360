@@ -5,17 +5,89 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ChessGame;
+using UnityEditor.Experimental.GraphView;
 
 namespace ChessGame
 {
     public enum MoveDirection
     {
-        Forward, Backward, Clockwise, CounterClockwise, DClockwiseForward, DClockwiseBackward, DCounterClockwiseForward, DCounterClockwiseBackward
+        Forward = 0, Backward = 4, Clockwise = 2, CounterClockwise = 6, DClockwiseForward = 1, DClockwiseBackward = 3, DCounterClockwiseForward = 7, DCounterClockwiseBackward = 5, None = -1
     }
 
     public static class MoveDirectionOperations
     {
         // might be a good idea to create a new method that implements one of these methods to add a layer of abstraction to the move operations
+        public static MoveDirection FindMoveDirection(TileBehaviour StartTile, TileBehaviour EndTile)
+        {
+            if (Forward(StartTile) == EndTile)
+            {
+                return MoveDirection.Forward;
+            }
+            if (Backward(StartTile) == EndTile)
+            {
+                return MoveDirection.Backward;
+            }
+            if (Clockwise(StartTile) == EndTile)
+            {
+                return MoveDirection.Clockwise;
+            }
+            if (CounterClockwise(StartTile) == EndTile)
+            {
+                return MoveDirection.CounterClockwise;
+            }
+            if (DClockwiseBackward(StartTile) == EndTile)
+            {
+                return MoveDirection.DClockwiseBackward;
+            }
+            if (DClockwiseForward(StartTile) == EndTile)
+            {
+                return MoveDirection.DClockwiseForward;
+            }
+            if (DCounterClockwiseForward(StartTile) == EndTile)
+            {
+                return MoveDirection.DCounterClockwiseForward;
+            }
+            if (DCounterClockwiseBackward(StartTile) == EndTile)
+            {
+                return MoveDirection.DCounterClockwiseBackward;
+            }
+            else
+            {
+                return MoveDirection.None;
+            }
+        }
+        public static TileBehaviour MoveOperator(TileBehaviour Tile, MoveDirection Direction)
+        {
+            switch (Direction)
+            {
+                case MoveDirection.Forward:
+                    Tile = Forward(Tile);
+                    return Tile;
+                case MoveDirection.Backward:
+                    Tile = Backward(Tile);
+                    return Tile;
+                case MoveDirection.Clockwise:
+                    Tile = Clockwise(Tile);
+                    return Tile;
+                case MoveDirection.CounterClockwise:
+                    Tile = CounterClockwise(Tile);
+                    return Tile;
+                case MoveDirection.DCounterClockwiseForward:
+                    Tile = DCounterClockwiseForward(Tile);
+                    return Tile;
+                case MoveDirection.DClockwiseForward:
+                    Tile = DClockwiseForward(Tile);
+                    return Tile;
+                case MoveDirection.DClockwiseBackward:
+                    Tile = DClockwiseBackward(Tile);
+                    return Tile;
+                case MoveDirection.DCounterClockwiseBackward:
+                    Tile = DCounterClockwiseBackward(Tile);
+                    return Tile;
+                default: 
+                    return null;
+            }
+        }
         public static TileBehaviour Forward(TileBehaviour Tile)
         {
             if (Tile.TileIndex + 1 > 8)
