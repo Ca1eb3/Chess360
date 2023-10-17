@@ -1,5 +1,6 @@
 # Chess360
 A board game inspired by chess with new pieces and a different board layout. For the rules click [here](https://github.com/Ca1eb3/ChessVariant/wiki/Rules)
+To play the latest version go to [https://ca1eb3.github.io/Chess360/](https://ca1eb3.github.io/Chess360/)
 
 ## Version History
 ### main.09.2023
