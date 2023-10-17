@@ -12,6 +12,7 @@ public abstract class GamePiece : MonoBehaviour
     public TileBehaviour CurrentLocation;
     public TileBehaviour NextLocation;
     public TileBehaviour PreviousLocation;
+    public ValidMoveGraphStartNode ValidMoveGraph = new ValidMoveGraphStartNode();
     public bool AttacksOverseer = false;
 
 
@@ -25,7 +26,9 @@ public abstract class GamePiece : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        CurrentLocation = GameObject.Find(TileSector.ToString() + TileIndex.ToString()).GetComponent<TileBehaviour>();
+        ValidMoveGraph.Piece = this;
+        UpdateValidMoveGraph();
     }
 
     // Update is called once per frame
@@ -38,6 +41,7 @@ public abstract class GamePiece : MonoBehaviour
     {
         data.CurrentTile = CurrentLocation;
         data.SelectedPiece = this;
+        UpdateValidMoveGraph();
     }
 
     public virtual void UpdateSceneStatus(GameData data)
@@ -66,15 +70,36 @@ public abstract class GamePiece : MonoBehaviour
         }
     }
 
-    public bool MoveParameterCheckCurrentState()
-    {
-        return MoveParameterCheck(NextLocation, CurrentLocation);
-    }
-
     public bool AttackOverseerCheck(Overseer overseer)
     {
-        return MoveParameterCheck(overseer.CurrentLocation, CurrentLocation);
+        return this.ValidMoveGraph.ValidMoves.Contains(overseer.CurrentLocation);
     }
 
-    public abstract bool MoveParameterCheck(TileBehaviour nextLocation, TileBehaviour currentLocation);
+    public abstract bool MoveParameterCheck(TileBehaviour nextLocation, TileBehaviour currentLocation, int depth);
+
+
+    public bool OccupiedSpaceCheck(TileBehaviour nextLocation)
+    {
+        if (nextLocation.IsOccupied == true)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public bool CanAttackCheck(TileBehaviour nextLocation)
+    {
+        if (nextLocation.OccupyingObject.Color == Color || nextLocation.OccupyingObject.PieceType == PieceString.B)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    public virtual void UpdateValidMoveGraph()
+    {
+        ValidMoveGraph.PieceLocation = CurrentLocation;
+        ValidMoveGraph.ClearValidMoves();
+        ValidMoveGraph.CreateNodes();
+    }
 }

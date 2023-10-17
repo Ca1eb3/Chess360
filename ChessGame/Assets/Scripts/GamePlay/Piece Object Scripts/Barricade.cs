@@ -9,23 +9,11 @@ using ChessGame;
 
 public class Barricade : GamePiece
 {
-    // Start is called before the first frame update
-    void Start()
+    public override bool MoveParameterCheck(TileBehaviour nextLocation, TileBehaviour currentLocation, int depth)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public override bool MoveParameterCheck(TileBehaviour nextLocation, TileBehaviour currentLocation)
-    {
-        if (nextLocation.IsOccupied == false)
+        if (nextLocation.IsOccupied == false && depth <= 1)
         {
-            if (MovePatterns.SingleRadial(nextLocation, currentLocation) || MovePatterns.SingleForward(nextLocation, currentLocation))
+            if (MovePatterns.Radial(nextLocation, currentLocation) || MovePatterns.Forward(nextLocation, currentLocation))
             {
                 return true;
             }
