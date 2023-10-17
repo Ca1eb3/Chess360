@@ -9,20 +9,23 @@ public class Soldier : GamePiece
 {
     public override bool MoveParameterCheck(TileBehaviour nextLocation, TileBehaviour currentLocation, int depth)
     {
-        if (OccupiedSpaceCheck(nextLocation))
+        if (depth <= 2 && (MovePatterns.Radial(nextLocation, currentLocation) || MovePatterns.Forward(nextLocation, currentLocation) || MovePatterns.Diagonal(nextLocation, currentLocation)))
         {
-            if (CanAttackCheck(nextLocation))
+            if (OccupiedSpaceCheck(nextLocation))
             {
-                return true;
+                if (CanAttackCheck(nextLocation))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
-                return false;
+                return true;
             }
-        }
-        if (depth <= 2 && (MovePatterns.Radial(nextLocation, currentLocation) || MovePatterns.Forward(nextLocation, currentLocation) || MovePatterns.Diagonal(nextLocation, currentLocation)))
-        {
-            return true;
         }
         else
         {

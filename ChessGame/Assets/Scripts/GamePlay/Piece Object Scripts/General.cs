@@ -11,24 +11,41 @@ public class General : GamePiece
 {
     public override bool MoveParameterCheck(TileBehaviour nextLocation, TileBehaviour currentLocation, int depth)
     {
-        if (OccupiedSpaceCheck(nextLocation))
+        if (depth <= 1 && MovePatterns.Forward(nextLocation, currentLocation))
         {
-            if (CanAttackCheck(nextLocation))
+            if (OccupiedSpaceCheck(nextLocation))
             {
-                return true;
+                if (CanAttackCheck(nextLocation))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
-                return false;
+                return true;
             }
-        }
-        if (depth <= 1 && MovePatterns.Forward(nextLocation, currentLocation))
-        {
-            return true;
         }
         else if (MovePatterns.Radial(nextLocation, currentLocation))
         {
-            return true;
+            if (OccupiedSpaceCheck(nextLocation))
+            {
+                if (CanAttackCheck(nextLocation))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return true;
+            }
         }
         else
         {

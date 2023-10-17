@@ -10,20 +10,23 @@ public class Pilot : GamePiece
 {
     public override bool MoveParameterCheck(TileBehaviour nextLocation, TileBehaviour currentLocation, int depth)
     {
-        if (OccupiedSpaceCheck(nextLocation))
+        if (MovePatterns.Diagonal(nextLocation, currentLocation))
         {
-            if (CanAttackCheck(nextLocation))
+            if (OccupiedSpaceCheck(nextLocation))
             {
-                return true;
+                if (CanAttackCheck(nextLocation))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
-                return false;
+                return true;
             }
-        }
-        if (MovePatterns.Diagonal(nextLocation, currentLocation))
-        {
-            return true;
         }
         else
         {
