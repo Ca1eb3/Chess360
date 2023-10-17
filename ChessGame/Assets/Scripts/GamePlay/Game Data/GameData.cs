@@ -210,14 +210,6 @@ public class GameData : MonoBehaviour
                 ValidMove = true;
             }
 
-            //if ((CheckBlack == true || CheckWhite == true) && ValidMove == true)
-            //{
-            //    //CheckmateAnalyzer();
-            //}
-
-
-
-
             // replace
             // Destroy piece in next location if applicable
             // Change piece position
@@ -453,7 +445,6 @@ public class GameData : MonoBehaviour
                 }
             }
         }
-
 
         // replace
         // Destroy piece in next location if applicable
