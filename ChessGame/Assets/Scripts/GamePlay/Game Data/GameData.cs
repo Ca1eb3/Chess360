@@ -27,7 +27,6 @@ public class GameData : MonoBehaviour
     public bool IsOver = false;
     public PieceColor Winner = PieceColor.None;
     public TextMeshProUGUI MoveRecordText;
-    public GameObject MoveRecordContent;
     public GamePiece RemovedPiece;
     public bool CheckBlack = false;
     public bool CheckWhite = false;
@@ -44,8 +43,7 @@ public class GameData : MonoBehaviour
     void Start()
     {
         UpdateGamePieces();
-        MoveRecordContent = GameObject.Find("MoveRecordContent");
-        MoveRecordText = MoveRecordContent.GetComponent<TextMeshProUGUI>().ConvertTo<TextMeshProUGUI>();
+        MoveRecordText = GameObject.Find("MoveRecordContent").GetComponent<TextMeshProUGUI>().ConvertTo<TextMeshProUGUI>();
         UpdateOverseers();
     }
     
@@ -101,9 +99,6 @@ public class GameData : MonoBehaviour
 
     public void MakeMove()
     {
-        ValidMove = false;
-        CheckWhite = false;
-        CheckBlack = false;
         if (MoveCounter % 2 == 0)
         {
             Turn = PieceColor.White;
@@ -120,7 +115,7 @@ public class GameData : MonoBehaviour
         // Set pieces next location
         SelectedPiece.NextLocation = NewTile;
         // Do move checks
-        if (Turn == PieceColor.White && SelectedPiece.Color == PieceColor.Black || Turn == PieceColor.Black && SelectedPiece.Color == PieceColor.White)
+        if (Turn != SelectedPiece.Color)
         {
             return;
         }
@@ -130,10 +125,6 @@ public class GameData : MonoBehaviour
         }
         if (true)
         {
-            // reset attacking piece
-            AttackingBlack.Clear();
-            AttackingWhite.Clear();
-
             // Destroy piece in next location if applicable
             if (NewTile.IsOccupied == true)
             {
@@ -283,7 +274,11 @@ public class GameData : MonoBehaviour
     {
         CheckBlack = false;
         CheckWhite = false;
+        ValidMove = false;
         PieceDestroyed = false;
+        // reset attacking pieces
+        AttackingBlack.Clear();
+        AttackingWhite.Clear();
     }
 
     public void UpdateMoveRecord()
