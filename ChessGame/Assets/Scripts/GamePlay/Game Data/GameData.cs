@@ -32,6 +32,7 @@ public class GameData : MonoBehaviour
     public bool CheckBlack = false;
     public bool CheckWhite = false;
     public bool ValidMove = false;
+    public bool PieceDestroyed = false;
     public List<GamePiece> AttackingWhite;
     public List<GamePiece> AttackingBlack;
     public PieceColor Turn = PieceColor.White;
@@ -103,8 +104,6 @@ public class GameData : MonoBehaviour
         ValidMove = false;
         CheckWhite = false;
         CheckBlack = false;
-        // string to append move to move record
-        string moveRecordStringAppend = "";
         if (MoveCounter % 2 == 0)
         {
             Turn = PieceColor.White;
@@ -112,23 +111,6 @@ public class GameData : MonoBehaviour
         else
         {
             Turn = PieceColor.Black;
-        }
-        if (Turn == PieceColor.White)
-        {
-            if (MoveCounter == 0)
-            {
-                int moveNumber = MoveCounter / 2 + 1;
-                moveRecordStringAppend = moveNumber + ". ";
-            }
-            else
-            {
-                int moveNumber = MoveCounter / 2 + 1;
-                moveRecordStringAppend = " " + moveNumber + ". ";
-            }
-        }
-        else
-        {
-            moveRecordStringAppend = " ";
         }
         // Null Reference Check
         if (SelectedPiece == null)
@@ -243,21 +225,14 @@ public class GameData : MonoBehaviour
                 return;
             }
         }
-        // return if putting self in check
-        // add code for check
-
-
-        // append new tile to move record string
-        moveRecordStringAppend = moveRecordStringAppend + SelectedPiece.PieceType.ToString() + SelectedPiece.NextLocation.TileSector.ToString() + SelectedPiece.NextLocation.TileIndex.ToString();
         // The below code should only execute if all checks have passed
         // update move counter
         MoveCounter++;
         // Destroy piece in next location if applicable
         if (NewTile.IsOccupied == true)
         {
-            string pieceDestroyed = "x";
+            PieceDestroyed = true;
             DestroyPiece();
-            moveRecordStringAppend = moveRecordStringAppend + pieceDestroyed;
         }
         // Change piece position
         SelectedPiece.gameObject.transform.position = SelectedPiece.NextLocation.gameObject.transform.position;
@@ -291,7 +266,6 @@ public class GameData : MonoBehaviour
         }
         if (Checkmate == true)
         {
-            moveRecordStringAppend += "#";
             IsOver = true;
             Winner = Turn;
         }
@@ -300,16 +274,64 @@ public class GameData : MonoBehaviour
             IsOver = true;
             Winner = PieceColor.None;
         }
-        if (!IsOver)
-        {
-            if (CheckBlack == true || CheckWhite == true)
-            {
-                moveRecordStringAppend += "+";
-            }
-            CheckBlack = false;
-            CheckWhite = false;
-        }
         // Update Move Record
+        UpdateMoveRecord();
+        ResetStatus();
+    }
+
+    public void ResetStatus()
+    {
+        CheckBlack = false;
+        CheckWhite = false;
+        PieceDestroyed = false;
+    }
+
+    public void UpdateMoveRecord()
+    {
+        // string to append move to move record
+        string moveRecordStringAppend = "";
+        // append move number
+        if (Turn == PieceColor.White)
+        {
+            if (MoveCounter == 0)
+            {
+                int moveNumber = MoveCounter / 2 + 1;
+                moveRecordStringAppend = moveNumber + ". ";
+            }
+            else
+            {
+                int moveNumber = MoveCounter / 2 + 1;
+                moveRecordStringAppend = " " + moveNumber + ". ";
+            }
+        }
+        else
+        {
+            moveRecordStringAppend = " ";
+        }
+
+        // append piece type to move record string
+        moveRecordStringAppend += SelectedPiece.PieceType.ToString();
+
+        // append captured piece status if applicable
+        if (PieceDestroyed)
+        {
+            moveRecordStringAppend += "x";
+        }
+
+        // append new tile to move record string
+        moveRecordStringAppend += SelectedPiece.CurrentLocation.TileSector.ToString().ToLower() + SelectedPiece.CurrentLocation.TileIndex.ToString();
+
+        // append check or checkmate status if applicable
+        if (Checkmate == true)
+        {
+            moveRecordStringAppend += "#";
+        }
+        else if (CheckBlack || CheckWhite)
+        {
+            moveRecordStringAppend += "+";
+        }
+
+        // update text
         MoveRecordText.text = MoveRecordText.text + moveRecordStringAppend;
     }
 
