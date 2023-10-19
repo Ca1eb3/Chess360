@@ -123,99 +123,54 @@ public class GameData : MonoBehaviour
         {
             return;
         }
-        if (true)
+
+        // Move into probable state to continue move checks
+        NewPieceState(NewTile, CurrentTile, SelectedPiece);
+
+        // The game is in the probable next game state
+        foreach (var piece in BlackGamePieces)
         {
-            // Destroy piece in next location if applicable
-            if (NewTile.IsOccupied == true)
+            if (RemovedPiece != null && piece.Equals(RemovedPiece))
             {
-                RemovePiece();
+                continue;
             }
-            // Change piece position
-            SelectedPiece.TileSector = SelectedPiece.NextLocation.TileSector;
-            SelectedPiece.TileIndex = SelectedPiece.NextLocation.TileIndex;
-            // Update piece location
-            SelectedPiece.PreviousLocation = SelectedPiece.CurrentLocation;
-            SelectedPiece.CurrentLocation = SelectedPiece.NextLocation;
-            // update original tile and new tile
-            NewTile.OccupyingObject = CurrentTile.OccupyingObject;
-            CurrentTile.OccupyingObject = null;
-            CurrentTile.UpdateStatus(this);
-            NewTile.UpdateStatus(this);
-            UpdateGamePieces();
-            foreach (var piece in GamePieces)
+            if (piece.AttackOverseerCheck(OverseerWhite))
             {
-                piece.CurrentLocation.UpdateStatus(this);
-                piece.UpdateButtonStatus(this);
-                piece.UpdateSceneStatus(this);
-                piece.UpdateValidMoveGraph();
-            }
-            // The game is in the probable next game state
-            foreach (var piece in BlackGamePieces)
-            {
-                if (RemovedPiece != null && piece.Equals(RemovedPiece))
-                {
-                    continue;
-                }
-                if (piece.AttackOverseerCheck(OverseerWhite))
-                {
-                    CheckWhite = true;
-                    AttackingWhite.Add(piece);
-                }
-            }
-            foreach (var piece in WhiteGamePieces)
-            {
-                if (RemovedPiece != null && piece.Equals(RemovedPiece))
-                {
-                    continue;
-                }
-                if (piece.AttackOverseerCheck(OverseerBlack))
-                {
-                    CheckBlack = true;
-                    AttackingBlack.Add(piece);
-                }
-            }
-            if (CheckBlack && Turn == PieceColor.Black || CheckWhite && Turn == PieceColor.White)
-            {
-                ValidMove = false;
-            }
-            else
-            {
-                ValidMove = true;
-            }
-
-            // replace
-            // Destroy piece in next location if applicable
-            // Change piece position
-            SelectedPiece.TileSector = SelectedPiece.PreviousLocation.TileSector;
-            SelectedPiece.TileIndex = SelectedPiece.PreviousLocation.TileIndex;
-            // Update piece location
-            SelectedPiece.CurrentLocation = SelectedPiece.PreviousLocation;
-            SelectedPiece.PreviousLocation = null;
-            // update original tile and new tile
-            CurrentTile.OccupyingObject = NewTile.OccupyingObject;
-            NewTile.OccupyingObject = null;
-            if (RemovedPiece != null)
-            {
-                ReplacePiece();
-                RemovedPiece = null;
-            }
-            CurrentTile.UpdateStatus(this);
-            NewTile.UpdateStatus(this);
-            UpdateGamePieces();
-            foreach (var piece in GamePieces)
-            {
-                piece.CurrentLocation.UpdateStatus(this);
-                piece.UpdateButtonStatus(this);
-                piece.UpdateSceneStatus(this);
-                piece.UpdateValidMoveGraph();
-            }
-
-            // return if putting self in check
-            if (ValidMove == false)
-            {
-                return;
+                CheckWhite = true;
+                AttackingWhite.Add(piece);
             }
         }
+        foreach (var piece in WhiteGamePieces)
+        {
+            if (RemovedPiece != null && piece.Equals(RemovedPiece))
+            {
+                continue;
+            }
+            if (piece.AttackOverseerCheck(OverseerBlack))
+            {
+                CheckBlack = true;
+                AttackingBlack.Add(piece);
+            }
+        }
+        if (CheckBlack && Turn == PieceColor.Black || CheckWhite && Turn == PieceColor.White)
+        {
+            ValidMove = false;
+        }
+        else
+        {
+            ValidMove = true;
+        }
+
+        // replace state
+        ReplacePieceState(NewTile, CurrentTile, SelectedPiece);
+
+        // return if putting self in check
+        if (ValidMove == false)
+        {
+            ResetStatus();
+            return;
+        }
+
         // The below code should only execute if all checks have passed
         // update move counter
         MoveCounter++;
@@ -338,17 +293,65 @@ public class GameData : MonoBehaviour
         NewTile.UpdateStatus(this);
     }
 
-    public void RemovePiece()
+    public void NewPieceState(TileBehaviour CheckTile, TileBehaviour PieceLocation, GamePiece Piece)
     {
-        RemovedPiece = NewTile.OccupyingObject;
-        NewTile.OccupyingObject = null;
-        NewTile.UpdateStatus(this);
+        // Destroy piece in next location if applicable
+        if (CheckTile.IsOccupied == true)
+        {
+            RemovedPiece = CheckTile.OccupyingObject;
+            CheckTile.OccupyingObject = null;
+            CheckTile.UpdateStatus(this);
+        }
+        // Change piece position
+        Piece.TileSector = CheckTile.TileSector;
+        Piece.TileIndex = CheckTile.TileIndex;
+        // Update piece location
+        Piece.PreviousLocation = Piece.CurrentLocation;
+        Piece.CurrentLocation = CheckTile;
+        // update original tile and new tile
+        CheckTile.OccupyingObject = PieceLocation.OccupyingObject;
+        PieceLocation.OccupyingObject = null;
+        PieceLocation.UpdateStatus(this);
+        CheckTile.UpdateStatus(this);
+        UpdateGamePieces();
+        foreach (var piece in GamePieces)
+        {
+            piece.CurrentLocation.UpdateStatus(this);
+            piece.UpdateButtonStatus(this);
+            piece.UpdateSceneStatus(this);
+            piece.UpdateValidMoveGraph();
+        }
     }
 
-    public void ReplacePiece()
+    public void ReplacePieceState(TileBehaviour CheckTile, TileBehaviour PieceLocation, GamePiece Piece)
     {
-        NewTile.OccupyingObject = RemovedPiece;
-        NewTile.UpdateStatus(this);
+        // replace
+        // Destroy piece in next location if applicable
+        // Change piece position
+        Piece.TileSector = Piece.PreviousLocation.TileSector;
+        Piece.TileIndex = Piece.PreviousLocation.TileIndex;
+        // Update piece location
+        Piece.CurrentLocation = Piece.PreviousLocation;
+        Piece.PreviousLocation = null;
+        // update original tile and new tile
+        PieceLocation.OccupyingObject = CheckTile.OccupyingObject;
+        CheckTile.OccupyingObject = null;
+        if (RemovedPiece != null)
+        {
+            CheckTile.OccupyingObject = RemovedPiece;
+            CheckTile.UpdateStatus(this);
+            RemovedPiece = null;
+        }
+        PieceLocation.UpdateStatus(this);
+        CheckTile.UpdateStatus(this);
+        UpdateGamePieces();
+        foreach (var piece in GamePieces)
+        {
+            piece.CurrentLocation.UpdateStatus(this);
+            piece.UpdateButtonStatus(this);
+            piece.UpdateSceneStatus(this);
+            piece.UpdateValidMoveGraph();
+        }
     }
     public void CheckmateAnalyzer(PieceColor NextMoveColor)
     {
@@ -405,31 +408,9 @@ public class GameData : MonoBehaviour
         {
             return;
         }
-        // Destroy piece in next location if applicable
-        if (CheckTile.IsOccupied == true)
-        {
-            RemovedPiece = CheckTile.OccupyingObject;
-            CheckTile.OccupyingObject = null;
-            CheckTile.UpdateStatus(this);
-        }
-        // Change piece position
-        CheckPiece.TileSector = CheckTile.TileSector;
-        CheckPiece.TileIndex = CheckTile.TileIndex;
-        // Update piece location
-        CheckPiece.PreviousLocation = CheckPiece.CurrentLocation;
-        CheckPiece.CurrentLocation = CheckTile;
-        // update original tile and new tile
-        CheckTile.OccupyingObject = PieceLocation.OccupyingObject;
-        PieceLocation.OccupyingObject = null;
-        PieceLocation.UpdateStatus(this);
-        CheckTile.UpdateStatus(this);
-        foreach (var piece in GamePieces)
-        {
-            piece.CurrentLocation.UpdateStatus(this);
-            piece.UpdateButtonStatus(this);
-            piece.UpdateSceneStatus(this);
-            piece.UpdateValidMoveGraph();
-        }
+
+        // Move into probable state to continue move checks
+        NewPieceState(CheckTile, PieceLocation, CheckPiece);
 
         // The game is in the probable next game state
         if (NextMoveColor == PieceColor.White)
@@ -463,31 +444,7 @@ public class GameData : MonoBehaviour
             }
         }
 
-        // replace
-        // Destroy piece in next location if applicable
-        // Change piece position
-        CheckPiece.TileSector = CheckPiece.PreviousLocation.TileSector;
-        CheckPiece.TileIndex = CheckPiece.PreviousLocation.TileIndex;
-        // Update piece location
-        CheckPiece.CurrentLocation = CheckPiece.PreviousLocation;
-        CheckPiece.PreviousLocation = null;
-        // update original tile and new tile
-        PieceLocation.OccupyingObject = CheckTile.OccupyingObject;
-        CheckTile.OccupyingObject = null;
-        if (RemovedPiece != null)
-        {
-            CheckTile.OccupyingObject = RemovedPiece;
-            CheckTile.UpdateStatus(this);
-            RemovedPiece = null;
-        }
-        PieceLocation.UpdateStatus(this);
-        CheckTile.UpdateStatus(this);
-        foreach (var piece in GamePieces)
-        {
-            piece.CurrentLocation.UpdateStatus(this);
-            piece.UpdateButtonStatus(this);
-            piece.UpdateSceneStatus(this);
-            piece.UpdateValidMoveGraph();
-        }
+        // replace state
+        ReplacePieceState(CheckTile, PieceLocation, CheckPiece);
     }
 }
