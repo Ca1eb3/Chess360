@@ -87,7 +87,7 @@ namespace ChessGame
                     return null;
             }
         }
-        public static TileBehaviour Forward(TileBehaviour Tile)
+        private static TileBehaviour Forward(TileBehaviour Tile)
         {
             if (Tile.TileIndex + 1 > 8)
             {
@@ -99,7 +99,7 @@ namespace ChessGame
             return NextTile;
         }
 
-        public static TileBehaviour Backward(TileBehaviour Tile)
+        private static TileBehaviour Backward(TileBehaviour Tile)
         {
             if (Tile.TileIndex - 1 < 1)
             {
@@ -111,7 +111,7 @@ namespace ChessGame
             return NextTile;
         }
 
-        public static TileBehaviour Clockwise(TileBehaviour Tile)
+        private static TileBehaviour Clockwise(TileBehaviour Tile)
         {
             int tileIndex = Tile.TileIndex;
             Sector tileSector = SectorOperations.AddSector(Tile.TileSector);
@@ -119,7 +119,7 @@ namespace ChessGame
             return NextTile;
         }
 
-        public static TileBehaviour CounterClockwise(TileBehaviour Tile)
+        private static TileBehaviour CounterClockwise(TileBehaviour Tile)
         {
             int tileIndex = Tile.TileIndex;
             Sector tileSector = SectorOperations.SubtractSector(Tile.TileSector);
@@ -127,7 +127,7 @@ namespace ChessGame
             return NextTile;
         }
 
-        public static TileBehaviour DClockwiseForward(TileBehaviour Tile)
+        private static TileBehaviour DClockwiseForward(TileBehaviour Tile)
         {
             if (Tile.TileIndex + 1 > 8)
             {
@@ -139,7 +139,7 @@ namespace ChessGame
             return NextTile;
         }
 
-        public static TileBehaviour DClockwiseBackward(TileBehaviour Tile)
+        private static TileBehaviour DClockwiseBackward(TileBehaviour Tile)
         {
             if (Tile.TileIndex - 1 < 1)
             {
@@ -151,7 +151,7 @@ namespace ChessGame
             return NextTile;
         }
 
-        public static TileBehaviour DCounterClockwiseForward(TileBehaviour Tile)
+        private static TileBehaviour DCounterClockwiseForward(TileBehaviour Tile)
         {
             if (Tile.TileIndex + 1 > 8)
             {
@@ -163,7 +163,7 @@ namespace ChessGame
             return NextTile;
         }
 
-        public static TileBehaviour DCounterClockwiseBackward(TileBehaviour Tile)
+        private static TileBehaviour DCounterClockwiseBackward(TileBehaviour Tile)
         {
             if (Tile.TileIndex - 1 < 1)
             {

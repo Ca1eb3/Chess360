@@ -22,41 +22,8 @@ public class ValidMoveGraphStartNode
         {
             ValidMoveGraphBasicNode node = new ValidMoveGraphBasicNode();
 
-            switch (i)
-            {
-                case 0 :
-                    node.PieceLocation = MoveDirectionOperations.Forward(PieceLocation);
-                    node.MoveDirection = MoveDirection.Forward;
-                    break;
-                case 1 :
-                    node.PieceLocation = MoveDirectionOperations.Backward(PieceLocation);
-                    node.MoveDirection = MoveDirection.Backward;
-                    break;
-                case 2:
-                    node.PieceLocation = MoveDirectionOperations.Clockwise(PieceLocation);
-                    node.MoveDirection = MoveDirection.Clockwise;
-                    break;
-                case 3:
-                    node.PieceLocation = MoveDirectionOperations.CounterClockwise(PieceLocation);
-                    node.MoveDirection = MoveDirection.CounterClockwise;
-                    break;
-                case 4:
-                    node.PieceLocation = MoveDirectionOperations.DCounterClockwiseForward(PieceLocation);
-                    node.MoveDirection = MoveDirection.DCounterClockwiseForward;
-                    break;
-                case 5:
-                    node.PieceLocation = MoveDirectionOperations.DClockwiseForward(PieceLocation);
-                    node.MoveDirection = MoveDirection.DClockwiseForward;
-                    break;
-                case 6:
-                    node.PieceLocation = MoveDirectionOperations.DClockwiseBackward(PieceLocation);
-                    node.MoveDirection = MoveDirection.DClockwiseBackward;
-                    break;
-                case 7:
-                    node.PieceLocation = MoveDirectionOperations.DCounterClockwiseBackward(PieceLocation);
-                    node.MoveDirection = MoveDirection.DCounterClockwiseBackward;
-                    break;
-            }
+            node.MoveDirection = (MoveDirection)i;
+            node.PieceLocation = MoveDirectionOperations.MoveOperator(PieceLocation, node.MoveDirection);
 
             if (node.PieceLocation == null)
             {
