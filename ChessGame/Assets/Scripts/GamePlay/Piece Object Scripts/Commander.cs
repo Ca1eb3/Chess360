@@ -8,6 +8,18 @@ using UnityEngine;
 
 public class Commander : GamePiece
 {
+    public override void SetBitValue()
+    {
+        BitValue = new BitArray(5);
+        BitValue.Set(0, true);
+        if (Color == PieceColor.Black)
+        {
+            BitValue.Set(1, true);
+        }
+        BitValue.Set(2, true);
+        BitValue.Set(3, true);
+    }
+
     public override bool MoveParameterCheck(TileBehaviour nextLocation, TileBehaviour currentLocation, int depth)
     {
         if (MovePatterns.Forward(nextLocation, currentLocation) || MovePatterns.Radial(nextLocation, currentLocation) || MovePatterns.Diagonal(nextLocation, currentLocation))

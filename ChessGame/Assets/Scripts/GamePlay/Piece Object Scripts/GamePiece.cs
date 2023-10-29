@@ -22,6 +22,7 @@ public abstract class GamePiece : MonoBehaviour
     public PieceString PieceType;
     public Sector TileSector;
     public int TileIndex;
+    public BitArray BitValue;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +37,8 @@ public abstract class GamePiece : MonoBehaviour
     {
         
     }
+
+    public abstract void SetBitValue();
 
     public void UpdateGameData(GameData data)
     {

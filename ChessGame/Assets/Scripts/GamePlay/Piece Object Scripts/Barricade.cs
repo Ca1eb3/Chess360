@@ -28,6 +28,17 @@ public class Barricade : GamePiece
         }
     }
 
+    public override void SetBitValue()
+    {
+        BitValue = new BitArray(5);
+        BitValue.Set(0, true);
+        if (Color == PieceColor.Black)
+        {
+            BitValue.Set(1, true);
+        }
+        BitValue.Set(4, true);
+    }
+
     public override void UpdateSceneStatus(GameData data)
     {
             this.gameObject.transform.SetAsLastSibling();
