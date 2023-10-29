@@ -10,7 +10,6 @@ using TMPro;
 using System;
 using UnityEngine.UIElements;
 using System.Linq;
-using System.Threading;
 
 public class GameData : MonoBehaviour
 {
@@ -39,7 +38,6 @@ public class GameData : MonoBehaviour
     public bool Checkmate = false;
     public List<Tuple<TileBehaviour, GamePiece>> GlobalInvalidMoves = new List<Tuple<TileBehaviour, GamePiece>>();
     public List<Tuple<TileBehaviour, GamePiece>> GlobalValidMoves = new List<Tuple<TileBehaviour, GamePiece>>();
-    public BoardStateAnalyzer BoardStateAnalyzer = new BoardStateAnalyzer();
 
     // Start is called before the first frame update
     void Start()
@@ -47,7 +45,6 @@ public class GameData : MonoBehaviour
         UpdateGamePieces();
         MoveRecordText = GameObject.Find("MoveRecordContent").GetComponent<TextMeshProUGUI>().ConvertTo<TextMeshProUGUI>();
         UpdateOverseers();
-        BoardStateAnalyzer.SetUp(GamePieces);
     }
     
     // Update is called once per frame
