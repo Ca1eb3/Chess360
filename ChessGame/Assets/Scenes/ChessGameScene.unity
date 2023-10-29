@@ -364,7 +364,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0.8565458}
-  m_AnchoredPosition: {x: -91.50026, y: 28.69065}
+  m_AnchoredPosition: {x: -91.50026, y: 28.690506}
   m_SizeDelta: {x: 183, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!23 &258839400
@@ -561,11 +561,11 @@ MonoBehaviour:
   IsOver: 0
   Winner: 2
   MoveRecordText: {fileID: 0}
+  MoveRecordContent: {fileID: 0}
   RemovedPiece: {fileID: 0}
   CheckBlack: 0
   CheckWhite: 0
   ValidMove: 0
-  PieceDestroyed: 0
   AttackingWhite: []
   AttackingBlack: []
   Turn: 1
@@ -1761,7 +1761,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 129000547}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.99998516
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
