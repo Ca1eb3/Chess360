@@ -10,6 +10,7 @@ using TMPro;
 using System;
 using UnityEngine.UIElements;
 using System.Linq;
+using System.Threading;
 
 public class GameData : MonoBehaviour
 {
@@ -27,6 +28,7 @@ public class GameData : MonoBehaviour
     public bool IsOver = false;
     public PieceColor Winner = PieceColor.None;
     public TextMeshProUGUI MoveRecordText;
+    public TextMeshProUGUI EvaluationRecordText;
     public GamePiece RemovedPiece;
     public bool CheckBlack = false;
     public bool CheckWhite = false;
@@ -38,13 +40,17 @@ public class GameData : MonoBehaviour
     public bool Checkmate = false;
     public List<Tuple<TileBehaviour, GamePiece>> GlobalInvalidMoves = new List<Tuple<TileBehaviour, GamePiece>>();
     public List<Tuple<TileBehaviour, GamePiece>> GlobalValidMoves = new List<Tuple<TileBehaviour, GamePiece>>();
+    public BoardStateAnalyzer BoardStateAnalyzer = new BoardStateAnalyzer();
 
     // Start is called before the first frame update
     void Start()
     {
         UpdateGamePieces();
-        MoveRecordText = GameObject.Find("MoveRecordContent").GetComponent<TextMeshProUGUI>().ConvertTo<TextMeshProUGUI>();
+        MoveRecordText = GameObject.Find("MoveRecordContent").GetComponent<TextMeshProUGUI>();
+        EvaluationRecordText = GameObject.Find("BoardEvaluationContent").GetComponent<TextMeshProUGUI>();
         UpdateOverseers();
+        BoardStateAnalyzer.SetUp(GamePieces);
+        UpdateBoardEvaluation();
     }
     
     // Update is called once per frame
@@ -185,6 +191,7 @@ public class GameData : MonoBehaviour
         SelectedPiece.TileSector = SelectedPiece.NextLocation.TileSector;
         SelectedPiece.TileIndex = SelectedPiece.NextLocation.TileIndex;
         // Update piece location
+        SelectedPiece.PreviousLocation = SelectedPiece.CurrentLocation;
         SelectedPiece.CurrentLocation = SelectedPiece.NextLocation;
         SelectedPiece.NextLocation = null;
         // update original tile and new tile
@@ -220,8 +227,38 @@ public class GameData : MonoBehaviour
             IsOver = true;
             Winner = PieceColor.None;
         }
+        // Prepare control bit values and calculate board state
+        BitArray CheckControl = new BitArray(3);
+        if (Checkmate == true)
+        {
+            if (Winner == PieceColor.White)
+            {
+                CheckControl.Set(0, true);
+            }
+            else
+            {
+                CheckControl.Set(0, true);
+                CheckControl.Set(2, true);
+            }
+        }
+        else if (CheckBlack == true)
+        {
+            CheckControl.Set(1, true);
+            CheckControl.Set(2, true);
+        }
+        else if (CheckWhite == true)
+        {
+            CheckControl.Set(1, true);
+        }
+        else if (IsOver == true)
+        {
+            CheckControl.Set(2, true);
+        }
+
+        BoardStateAnalyzer.UpdateBoardState(SelectedPiece, CheckControl);
         // Update Move Record
         UpdateMoveRecord();
+        UpdateBoardEvaluation();
         ResetStatus();
     }
 
@@ -234,6 +271,11 @@ public class GameData : MonoBehaviour
         // reset attacking pieces
         AttackingBlack.Clear();
         AttackingWhite.Clear();
+    }
+
+    public void UpdateBoardEvaluation()
+    {
+        EvaluationRecordText.text = "Piece Evaluation: " + BoardStateAnalyzer.PieceEvaluation.ToString() +"\r\n\r\nBoard Evaluation: " + BoardStateAnalyzer.BoardEvaluation.ToString();
     }
 
     public void UpdateMoveRecord()
