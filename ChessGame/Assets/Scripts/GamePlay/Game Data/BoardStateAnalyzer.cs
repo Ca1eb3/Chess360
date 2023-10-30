@@ -12,6 +12,7 @@ public class BoardStateAnalyzer
     public BitArray BoardState = new BitArray(484);
     public int PieceEvaluation = 0;
     public double BoardEvaluation = 0;
+
     // Setup is called at the start of the game
     public void SetUp(List<GamePiece> gamePieces)
     {
